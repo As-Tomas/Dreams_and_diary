@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/journal"
+        android:title="Journal"
+        android:icon="@drawable/spiral_bound_booklet"/>
+    <item
+        android:id="@+id/addNew"
+        android:title="Add new"
+        android:icon="@drawable/plus128"/>
+    <item
+        android:id="@+id/search"
+        android:title="Search"
+        android:icon="@drawable/search96"/>
+</menu>

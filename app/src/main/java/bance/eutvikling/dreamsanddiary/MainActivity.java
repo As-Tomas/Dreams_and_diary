@@ -1,6 +1,7 @@
 package bance.eutvikling.dreamsanddiary;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,17 +20,28 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    JournalFragment journal_fragment = new JournalFragment();
+    AddRecordFragment add_record_fragment = new AddRecordFragment();
+    SearchFragment search_fragment = new SearchFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setCurentFragment(journal_fragment);
     }
+
+    public void setCurentFragment(Fragment fragment){
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame, fragment).commit();
+    }
+
 
     public JSONArray readDB() throws JSONException {
 
-
         if(isExternalStorageWritable()==false){
-            Toast.makeText(this,"Negalima pasiekti isorines atminties",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"can`t reach external memory",Toast.LENGTH_SHORT).show();
             return null;
         }
 
@@ -130,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         return recordObjs;
     }
 
-    /* tikrinam, ar galime skaityti ir rasyti */
+    /* check do we have permision to memory */
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
