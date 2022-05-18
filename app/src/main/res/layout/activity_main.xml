@@ -8,13 +8,13 @@
         android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/botomNav"
+        android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_alignParentBottom="true"
         app:menu="@menu/bottom_nav_menu"
         />
-
 
 </RelativeLayout>

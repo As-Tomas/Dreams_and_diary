@@ -1,12 +1,18 @@
 package bance.eutvikling.dreamsanddiary;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +26,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    BottomNavigationView bottomNavigationView;
+
     JournalFragment journal_fragment = new JournalFragment();
     AddRecordFragment add_record_fragment = new AddRecordFragment();
     SearchFragment search_fragment = new SearchFragment();
@@ -30,13 +38,36 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setCurentFragment(journal_fragment);
+
+        bottomNavigationView=findViewById(R.id.bottomNav);
+
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.journal:
+                        setCurentFragment(journal_fragment);
+                        return true;
+                    case R.id.addNew:
+                        setCurentFragment(add_record_fragment);
+                        return true;
+                    case R.id.search:
+                        setCurentFragment(search_fragment);
+                        return true;                }
+                return false;
+            }
+        });
     }
+
 
     public void setCurentFragment(Fragment fragment){
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame, fragment).commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frame, fragment)
+                .addToBackStack(null)
+                .commit();
     }
-
 
     public JSONArray readDB() throws JSONException {
 
@@ -78,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return arrfromFile;
     }
-
 
     public void saveDB(ArrayList<Dream> records) throws JSONException {
 
@@ -150,4 +180,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
+
 }
