@@ -6,16 +6,15 @@ public class Dream {
     private String dreamsNotice;
     private String dayNotice;
     private String[] tags;
-    private String sleepQuantity;
-    private String moodDream;
-    private String clarityDream;
+    private int sleepQuantity;
+    private int moodDream;
+    private int clarityDream;
 
     public Dream(String date) {
         this.date = date;
     }
 
-    public Dream(String date, String title, String dreamsNotice, String dayNotice, String[] tags,
-                 String sleepQuantity, String moodDream, String clarityDream) {
+    public Dream(String date, String title, String dreamsNotice, String dayNotice, String[] tags, int sleepQuantity, int moodDream, int clarityDream) {
         this.date = date;
         this.title = title;
         this.dreamsNotice = dreamsNotice;
@@ -66,27 +65,27 @@ public class Dream {
         this.tags = tags;
     }
 
-    public String getSleepQuantity() {
+    public int getSleepQuantity() {
         return sleepQuantity;
     }
 
-    public void setSleepQuantity(String sleepQuantity) {
+    public void setSleepQuantity(int sleepQuantity) {
         this.sleepQuantity = sleepQuantity;
     }
 
-    public String getMoodDream() {
+    public int getMoodDream() {
         return moodDream;
     }
 
-    public void setMoodDream(String moodDream) {
+    public void setMoodDream(int moodDream) {
         this.moodDream = moodDream;
     }
 
-    public String getClarityDream() {
+    public int getClarityDream() {
         return clarityDream;
     }
 
-    public void setClarityDream(String clarityDream) {
+    public void setClarityDream(int clarityDream) {
         this.clarityDream = clarityDream;
     }
 }

@@ -3,11 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/kalia/AndroidStudioProjects/Praktikavimuisi/Dreamsanddiary/app/src/main/res/layout/activity_main.xml" value="0.5013901760889713" />
+        <entry key="..\:/Users/kalia/AndroidStudioProjects/Praktikavimuisi/Dreamsanddiary/app/src/main/res/layout/activity_main.xml" value="0.4602587800369686" />
         <entry key="..\:/Users/kalia/AndroidStudioProjects/Praktikavimuisi/Dreamsanddiary/app/src/main/res/layout/fragment_add_record.xml" value="0.4008152173913043" />
         <entry key="..\:/Users/kalia/AndroidStudioProjects/Praktikavimuisi/Dreamsanddiary/app/src/main/res/layout/fragment_journal.xml" value="0.4008152173913043" />
         <entry key="..\:/Users/kalia/AndroidStudioProjects/Praktikavimuisi/Dreamsanddiary/app/src/main/res/layout/fragment_search.xml" value="0.4008152173913043" />
-        <entry key="..\:/Users/kalia/AndroidStudioProjects/Praktikavimuisi/Dreamsanddiary/app/src/main/res/menu/bottom_nav_menu.xml" value="0.4119791666666667" />
+        <entry key="..\:/Users/kalia/AndroidStudioProjects/Praktikavimuisi/Dreamsanddiary/app/src/main/res/layout/list_item_view.xml" value="0.36" />
+        <entry key="..\:/Users/kalia/AndroidStudioProjects/Praktikavimuisi/Dreamsanddiary/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
       </map>
     </option>
   </component>
