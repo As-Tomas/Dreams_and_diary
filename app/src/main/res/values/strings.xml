@@ -2,4 +2,10 @@
     <string name="app_name">Dreams and diary</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="date">date</string>
+    <string name="time">time</string>
+    <string name="title">Your dream title here</string>
+    <string name="dreamNotes">Describe your dream in details here.</string>
+    <string name="dayNotes">Describe your day in details</string>
+    <string name="tags">Add your tags here</string>
 </resources>

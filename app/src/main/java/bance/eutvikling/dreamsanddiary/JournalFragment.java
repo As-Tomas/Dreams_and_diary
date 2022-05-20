@@ -66,6 +66,7 @@ public class JournalFragment extends Fragment {
         list = view.findViewById(R.id.list);
         list.setAdapter(adapter);
 
+        //todo add context menu: delete, edit
 
         // Inflate the layout for this fragment
         return view;
