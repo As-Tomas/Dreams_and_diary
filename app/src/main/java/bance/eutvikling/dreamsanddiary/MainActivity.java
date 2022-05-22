@@ -1,5 +1,7 @@
 package bance.eutvikling.dreamsanddiary;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -25,20 +27,39 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AddRecordFragment.AddRecordListener, MoodFragment.MoodListener, SleepQualityFragment.SleepQualityListener, ClarityDreamFragment.ClarityDreamLitener {
 
     BottomNavigationView bottomNavigationView;
 
-    JournalFragment journal_fragment = new JournalFragment();
-    AddRecordFragment add_record_fragment = new AddRecordFragment();
-    SearchFragment search_fragment = new SearchFragment();
+    JournalFragment journal_fragment;
+    AddRecordFragment add_record_fragment;
+    SearchFragment search_fragment;
+
+    //private AddRecordFragment addRecordFragment;
+    private MoodFragment dreamMoodFragment;
+    private SleepQualityFragment sleepQualityFragment;
+    private ClarityDreamFragment clarityDreamFragment;
+    private CharSequence date;
+    private CharSequence time;
+    private CharSequence title;
+    private CharSequence dreamNotes;
+    private CharSequence dayNotes;
+    private CharSequence tags;
+    private int mood;
+    private int quality;
+    private int clarity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setCurentFragment(journal_fragment);
+        journal_fragment = new JournalFragment();
+        add_record_fragment = new AddRecordFragment();
+        search_fragment = new SearchFragment();
+
+
+        setCurrentFragment(journal_fragment);
 
         bottomNavigationView=findViewById(R.id.bottomNav);
 
@@ -47,13 +68,13 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.journal:
-                        setCurentFragment(journal_fragment);
+                        setCurrentFragment(journal_fragment);
                         return true;
                     case R.id.addNew:
-                        setCurentFragment(add_record_fragment);
+                        setCurrentFragment(add_record_fragment);
                         return true;
                     case R.id.search:
-                        setCurentFragment(search_fragment);
+                        setCurrentFragment(search_fragment);
                         return true;
                 }
                 return false;
@@ -62,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void setCurentFragment(Fragment fragment){
+    public void setCurrentFragment(Fragment fragment){
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -70,6 +91,58 @@ public class MainActivity extends AppCompatActivity {
                 .addToBackStack(null)
                 .commit();
     }
+
+    @Override
+    public void onInputAssent(CharSequence date, CharSequence time, CharSequence title, CharSequence dreamNotes, CharSequence dayNotes, CharSequence tags) {
+
+        this.date =date;
+        this.time = time;
+        this.title = title;
+        this.dreamNotes = dreamNotes;
+        this.dayNotes = dayNotes;
+        this.tags = tags;
+
+        dreamMoodFragment = new MoodFragment();
+        setCurrentFragment(dreamMoodFragment);
+
+    }
+
+    @Override
+    public void saveMood(int i) {
+
+        mood=i;
+        sleepQualityFragment = new SleepQualityFragment();
+        setCurrentFragment(sleepQualityFragment);
+
+    }
+
+    @Override
+    public void saveSleepQuality(int i) {
+
+        quality=i;
+
+        clarityDreamFragment = new ClarityDreamFragment();
+        setCurrentFragment(clarityDreamFragment);
+    }
+
+    @Override
+    public void saveClarityDream(int i) {
+
+        clarity = i;
+        Log.i(TAG, "here "+ date.toString());
+        Log.i(TAG, "here "+ time.toString());
+        Log.i(TAG, "here "+ title.toString());
+        Log.i(TAG, "here "+ dreamNotes.toString());
+        Log.i(TAG, "here "+ dayNotes.toString());
+        Log.i(TAG, "here "+ tags.toString());
+        Log.i(TAG, "here mood "+ mood);
+        Log.i(TAG, "here clarity "+ clarity);
+        Log.i(TAG, "here quality "+ quality);
+
+        //todo should save to DB...
+
+    }
+
 
     public JSONArray readDB() throws JSONException {
 
@@ -147,7 +220,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     public JSONObject convertToJasonObj(ArrayList<Dream> records) throws JSONException {
 
         JSONArray recordsArray = new JSONArray();
@@ -175,6 +247,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /* check do we have permision to memory */
+
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
@@ -182,6 +255,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-
-
 }

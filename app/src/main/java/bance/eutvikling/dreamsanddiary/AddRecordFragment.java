@@ -2,11 +2,15 @@ package bance.eutvikling.dreamsanddiary;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +24,17 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class AddRecordFragment extends Fragment {
 
+    private AddRecordListener listener;
+    private CharSequence date;
+    private CharSequence time;
+    private CharSequence title;
+    private CharSequence dreamNotes;
+    private CharSequence dayNotes;
+    private CharSequence tags;
+
+    public interface AddRecordListener {
+        void onInputAssent(CharSequence date, CharSequence time, CharSequence title, CharSequence dreamNotes, CharSequence dayNotes, CharSequence tags);
+    }
 
     public AddRecordFragment() {
         // Required empty public constructor
@@ -44,22 +59,39 @@ public class AddRecordFragment extends Fragment {
             public void onClick(View view) {
 
                 // Get input text
-                TextInputEditText datetitleText = (TextInputEditText)getActivity().findViewById(R.id.date);
-                String date = datetitleText.getText().toString();
-                TextInputEditText timetitleText = (TextInputEditText)getActivity().findViewById(R.id.title);
-                String time = timetitleText.getText().toString();
+                TextInputEditText dateTitleText = (TextInputEditText)getActivity().findViewById(R.id.date);
+                date = dateTitleText.getText();
+                TextInputEditText timeTitleText = (TextInputEditText)getActivity().findViewById(R.id.time);
+                time = timeTitleText.getText();
                 TextInputEditText titleText = (TextInputEditText)getActivity().findViewById(R.id.title);
-                String title = titleText.getText().toString();
-                TextInputEditText dreamNotestitleText = (TextInputEditText)getActivity().findViewById(R.id.title);
-                String dreamNotes = dreamNotestitleText.getText().toString();
-                TextInputEditText dayNotestitleText = (TextInputEditText)getActivity().findViewById(R.id.title);
-                String daynotes = dayNotestitleText.getText().toString();
-                TextInputEditText tagstitleText = (TextInputEditText)getActivity().findViewById(R.id.title);
-                String tags = tagstitleText.getText().toString();
+                title = titleText.getText();
+                TextInputEditText dreamNotesTitleText = (TextInputEditText)getActivity().findViewById(R.id.dreamNotes);
+                dreamNotes = dreamNotesTitleText.getText();
+                TextInputEditText dayNotesTitleText = (TextInputEditText)getActivity().findViewById(R.id.dayNotes);
+                dayNotes = dayNotesTitleText.getText();
+                TextInputEditText tagstitleText = (TextInputEditText)getActivity().findViewById(R.id.tags);
+                tags = tagstitleText.getText();
 
-                Log.i(TAG,title);
+                listener.onInputAssent(date, time, title, dreamNotes, dayNotes, tags);
             }
         });
 
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof AddRecordListener ) {
+            listener = (AddRecordListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement AddRecordListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 }
