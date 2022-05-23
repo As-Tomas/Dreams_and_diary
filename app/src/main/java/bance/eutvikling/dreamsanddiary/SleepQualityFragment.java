@@ -52,7 +52,7 @@ public class SleepQualityFragment extends Fragment {
             public void onClick(View view) {
 
                 TextView sad = view.findViewById(R.id.bad);
-                TextView kappy = view.findViewById(R.id.good);
+                TextView happy = view.findViewById(R.id.good);
 
                 listener.saveSleepQuality(2);
             }

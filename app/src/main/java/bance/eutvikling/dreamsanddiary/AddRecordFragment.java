@@ -20,17 +20,22 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textview.MaterialTextView;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 
 
 public class AddRecordFragment extends Fragment {
 
     private AddRecordListener listener;
-    private CharSequence date;
-    private CharSequence time;
-    private CharSequence title;
-    private CharSequence dreamNotes;
-    private CharSequence dayNotes;
-    private CharSequence tags;
+   // private CharSequence date;
+//    private CharSequence time;
+//    private CharSequence title;
+//    private CharSequence dreamNotes;
+//    private CharSequence dayNotes;
+//    private CharSequence tags;
 
     public interface AddRecordListener {
         void onInputAssent(CharSequence date, CharSequence time, CharSequence title, CharSequence dreamNotes, CharSequence dayNotes, CharSequence tags);
@@ -44,7 +49,19 @@ public class AddRecordFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_record, container, false);
+        View view= inflater.inflate(R.layout.fragment_add_record, container, false);
+
+        DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        DateTimeFormatter time = DateTimeFormatter.ofPattern("HH:mm");
+        LocalDateTime dateNow = LocalDateTime.now();
+
+        TextInputEditText dateFeald = (TextInputEditText)view.findViewById(R.id.date);
+        dateFeald.setText(date.format(dateNow));
+
+        TextInputEditText timeTitleText = (TextInputEditText)view.findViewById(R.id.time);
+        timeTitleText.setText(time.format(dateNow));
+
+        return view;
     }
 
     @Override
@@ -60,17 +77,17 @@ public class AddRecordFragment extends Fragment {
 
                 // Get input text
                 TextInputEditText dateTitleText = (TextInputEditText)getActivity().findViewById(R.id.date);
-                date = dateTitleText.getText();
+                CharSequence date = dateTitleText.getText();
                 TextInputEditText timeTitleText = (TextInputEditText)getActivity().findViewById(R.id.time);
-                time = timeTitleText.getText();
+                CharSequence time = timeTitleText.getText();
                 TextInputEditText titleText = (TextInputEditText)getActivity().findViewById(R.id.title);
-                title = titleText.getText();
+                CharSequence title = titleText.getText();
                 TextInputEditText dreamNotesTitleText = (TextInputEditText)getActivity().findViewById(R.id.dreamNotes);
-                dreamNotes = dreamNotesTitleText.getText();
+                CharSequence dreamNotes = dreamNotesTitleText.getText();
                 TextInputEditText dayNotesTitleText = (TextInputEditText)getActivity().findViewById(R.id.dayNotes);
-                dayNotes = dayNotesTitleText.getText();
+                CharSequence dayNotes = dayNotesTitleText.getText();
                 TextInputEditText tagstitleText = (TextInputEditText)getActivity().findViewById(R.id.tags);
-                tags = tagstitleText.getText();
+                CharSequence tags = tagstitleText.getText();
 
                 listener.onInputAssent(date, time, title, dreamNotes, dayNotes, tags);
             }
