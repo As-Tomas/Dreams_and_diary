@@ -2,29 +2,114 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-<!--todo update UI -->
     <TextView
-        android:id="@+id/bad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="bad" />
+        android:layout_marginStart="12dp"
+        android:textSize="25dp"
+        android:text="How was your sleep quality?" />
 
-    <TextView
-        android:id="@+id/good"
+    <LinearLayout
+        android:id="@+id/first"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="good" />
+        android:padding="15dp"
+        android:layout_margin="16dp">
 
-    <Button
-        android:id="@+id/next"
-        android:layout_width="wrap_content"
+        <ImageView
+            android:src="@drawable/verybad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Very bad" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/second"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:layout_margin="16dp">
 
-        android:layout_marginTop="30dp"
-        android:text="Next"/>
+        <ImageView
+            android:src="@drawable/notsogood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="No so good" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/third"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:layout_margin="16dp">
+
+        <ImageView
+            android:src="@drawable/normalsleep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Normal sleep" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/forth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:layout_margin="16dp">
+
+        <ImageView
+            android:src="@drawable/greatsleep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Great sleep" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fifth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:layout_margin="16dp">
+
+        <ImageView
+            android:src="@drawable/perfectsleep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Perfect sleep" />
+
+    </LinearLayout>
+
 </LinearLayout>

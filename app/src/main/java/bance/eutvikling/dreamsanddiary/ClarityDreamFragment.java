@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 
 public class ClarityDreamFragment extends Fragment {
@@ -20,6 +21,7 @@ public class ClarityDreamFragment extends Fragment {
 
     public interface ClarityDreamLitener {
         void saveClarityDream(int i);
+        void save();
     }
 
     public ClarityDreamFragment() {
@@ -48,12 +50,57 @@ public class ClarityDreamFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        LinearLayout first = view.findViewById(R.id.first);
+        first.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                listener.saveClarityDream(0);
+            }
+        });
+
+        LinearLayout second = view.findViewById(R.id.second);
+        second.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                listener.saveClarityDream(1);
+            }
+        });
+
+        LinearLayout third = view.findViewById(R.id.third);
+        third.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                listener.saveClarityDream(2);
+            }
+        });
+
+        LinearLayout forth = view.findViewById(R.id.forth);
+        forth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                listener.saveClarityDream(3);
+            }
+        });
+
+        LinearLayout fifth = view.findViewById(R.id.fifth);
+        fifth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                listener.saveClarityDream(4);
+            }
+        });
+
         Button save = view.findViewById(R.id.save);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                listener.saveClarityDream(5);
+                listener.save();
             }
         });
     }

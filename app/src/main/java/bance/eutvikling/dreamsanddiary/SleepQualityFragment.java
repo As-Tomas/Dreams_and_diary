@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -46,15 +46,48 @@ public class SleepQualityFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button next = view.findViewById(R.id.next);
-        next.setOnClickListener(new View.OnClickListener() {
+        LinearLayout first = view.findViewById(R.id.first);
+        first.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                TextView sad = view.findViewById(R.id.bad);
-                TextView happy = view.findViewById(R.id.good);
+                listener.saveSleepQuality(0);
+            }
+        });
+
+        LinearLayout second = view.findViewById(R.id.second);
+        second.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                listener.saveSleepQuality(1);
+            }
+        });
+
+        LinearLayout third = view.findViewById(R.id.third);
+        third.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
                 listener.saveSleepQuality(2);
+            }
+        });
+
+        LinearLayout forth = view.findViewById(R.id.forth);
+        forth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                listener.saveSleepQuality(3);
+            }
+        });
+
+        LinearLayout fifth = view.findViewById(R.id.fifth);
+        fifth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                listener.saveSleepQuality(4);
             }
         });
     }

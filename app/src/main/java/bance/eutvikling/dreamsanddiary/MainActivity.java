@@ -143,6 +143,27 @@ public class MainActivity extends AppCompatActivity implements AddRecordFragment
 
     }
 
+    @Override
+    public void save() {
+        ArrayList newRecords = new ArrayList();
+        newRecords.add(date);
+        newRecords.add(time);
+        newRecords.add(title);
+        newRecords.add(dreamNotes);
+        newRecords.add(dayNotes);
+        newRecords.add(tags);
+        newRecords.add(mood);
+        newRecords.add(clarity);
+        newRecords.add(quality);
+
+        try {
+            saveDB(newRecords);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(this, " Save to DB has issues",Toast.LENGTH_LONG).show();
+        }
+    }
+
 
     public JSONArray readDB() throws JSONException {
 
