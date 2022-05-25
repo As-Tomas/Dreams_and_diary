@@ -37,7 +37,8 @@ public class ArrayListAdapter extends ArrayAdapter<Dream> {
         ImageView iconQuality=view.findViewById(R.id.iconQuality);
         ImageView iconClarity=view.findViewById(R.id.iconClarity);
         TextView title = view.findViewById(R.id.title);
-        TextView description = view.findViewById(R.id.description);
+        TextView dreamsNotice = view.findViewById(R.id.dreamsNotice);
+        TextView dayNotes = view.findViewById(R.id.dayNotes);
         TextView tags = view.findViewById(R.id.tags);
 
         Dream dream_record = dreamsRecords.get(position);
@@ -47,7 +48,8 @@ public class ArrayListAdapter extends ArrayAdapter<Dream> {
         iconQuality.setImageResource(dream_record.getSleepQuantity());
         iconClarity.setImageResource(dream_record.getClarityDream());
         title.setText(dream_record.getTitle());
-        description.setText(dream_record.getDreamsNotice());
+        dreamsNotice.setText(dream_record.getDreamsNotice());
+        dayNotes.setText(dream_record.getDayNotice());
 
         // convert for display
         String allTags = String.join(", ", dream_record.getTags());

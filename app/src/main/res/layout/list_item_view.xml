@@ -2,7 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp">
+    android:paddingLeft="15dp"
+    android:paddingTop="7dp"
+    android:paddingRight="15dp"
+    android:paddingBottom="7dp">
 
     <TextView
         android:id="@+id/date"
@@ -10,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:paddingBottom="7dp"
+        android:paddingBottom="3dp"
         android:text="date" />
 
     <ImageView
@@ -43,19 +46,26 @@
         android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/dreamsNotice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
         android:layout_marginBottom="2dp"
         android:text="Description" />
 
+    <TextView
+        android:id="@+id/dayNotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dreamsNotice"
+        android:layout_marginBottom="2dp"
+        android:text="Description" />
 
     <TextView
         android:id="@+id/tags"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/description"
+        android:layout_below="@+id/dayNotes"
         android:text="tags" />
 
 </RelativeLayout>
