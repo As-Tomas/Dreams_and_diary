@@ -1,33 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:padding="15dp">
 
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:paddingBottom="7dp"
-        android:text="date"/>
+        android:text="date" />
 
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/iconMood"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true" />
+
+    <ImageView
+        android:id="@+id/iconQuality"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="35dp" />
+
+    <ImageView
+        android:id="@+id/iconClarity"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="70dp" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_below="@+id/date"
-        android:textSize="20dp"
-        android:text="Title"/>
+        android:layout_alignParentEnd="true"
+        android:text="Title"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/description"
@@ -35,13 +48,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
         android:layout_marginBottom="2dp"
-        android:text="Description"/>
+        android:text="Description" />
+
 
     <TextView
         android:id="@+id/tags"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/description"
-        android:text="tags"/>
+        android:text="tags" />
 
 </RelativeLayout>

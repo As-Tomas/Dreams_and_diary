@@ -33,7 +33,9 @@ public class ArrayListAdapter extends ArrayAdapter<Dream> {
         View view = inflater.inflate(R.layout.list_item_view, parent, false);
 
         TextView date=view.findViewById(R.id.date);
-        ImageView icon=view.findViewById(R.id.icon);
+        ImageView iconMood=view.findViewById(R.id.iconMood);
+        ImageView iconQuality=view.findViewById(R.id.iconQuality);
+        ImageView iconClarity=view.findViewById(R.id.iconClarity);
         TextView title = view.findViewById(R.id.title);
         TextView description = view.findViewById(R.id.description);
         TextView tags = view.findViewById(R.id.tags);
@@ -41,7 +43,9 @@ public class ArrayListAdapter extends ArrayAdapter<Dream> {
         Dream dream_record = dreamsRecords.get(position);
 
         date.setText(dream_record.getDate());
-        icon.setImageResource(dream_record.getMoodDream());
+        iconMood.setImageResource(dream_record.getMoodDream());
+        iconQuality.setImageResource(dream_record.getSleepQuantity());
+        iconClarity.setImageResource(dream_record.getClarityDream());
         title.setText(dream_record.getTitle());
         description.setText(dream_record.getDreamsNotice());
 
