@@ -205,6 +205,8 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        // reset for new window new instance
+        add_record_fragment = new AddRecordFragment();
     }
 
     @Override
