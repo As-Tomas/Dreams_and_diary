@@ -27,7 +27,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements AddRecordFragment.AddRecordListener, MoodFragment.MoodListener, SleepQualityFragment.SleepQualityListener, ClarityDreamFragment.ClarityDreamLitener {
+public class MainActivity extends AppCompatActivity implements JournalFragment.JournalFragmentListener, AddRecordFragment.AddRecordListener, MoodFragment.MoodListener, SleepQualityFragment.SleepQualityListener, ClarityDreamFragment.ClarityDreamLitener {
 
     BottomNavigationView bottomNavigationView;
 
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements AddRecordFragment
     private CharSequence title;
     private CharSequence dreamNotes;
     private CharSequence dayNotes;
-    private CharSequence tags;
+    private String[] tags;
     private int mood;
     private int quality;
     private int clarity;
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements AddRecordFragment
     }
 
     @Override
-    public void onInputAssent(CharSequence date, CharSequence time, CharSequence title, CharSequence dreamNotes, CharSequence dayNotes, CharSequence tags) {
+    public void onInputAssent(CharSequence date, CharSequence time, CharSequence title, CharSequence dreamNotes, CharSequence dayNotes, String[] tags) {
 
         this.date =date;
         this.time = time;
@@ -110,7 +110,25 @@ public class MainActivity extends AppCompatActivity implements AddRecordFragment
     @Override
     public void saveMood(int i) {
 
-        mood=i;
+        switch (i) {
+            case 0:
+                mood = R.drawable.verynegative;
+                break;
+            case 1:
+                mood = R.drawable.negative;
+                break;
+            case 2:
+                mood = R.drawable.neutral;
+                break;
+            case 3:
+                mood = R.drawable.nice;
+                break;
+            case 4:
+                mood = R.drawable.verynice;
+                break;
+        }
+
+
         sleepQualityFragment = new SleepQualityFragment();
         setCurrentFragment(sleepQualityFragment);
 
@@ -119,7 +137,24 @@ public class MainActivity extends AppCompatActivity implements AddRecordFragment
     @Override
     public void saveSleepQuality(int i) {
 
-        quality=i;
+        switch (i) {
+            case 0:
+                quality = R.drawable.verybad;
+                break;
+            case 1:
+                quality = R.drawable.notsogood;
+                break;
+            case 2:
+                quality = R.drawable.normalsleep;
+                break;
+            case 3:
+                quality = R.drawable.greatsleep;
+                break;
+            case 4:
+                quality = R.drawable.perfectsleep;
+                break;
+        }
+
 
         clarityDreamFragment = new ClarityDreamFragment();
         setCurrentFragment(clarityDreamFragment);
@@ -128,7 +163,25 @@ public class MainActivity extends AppCompatActivity implements AddRecordFragment
     @Override
     public void saveClarityDream(int i) {
 
-        clarity = i;
+        switch (i) {
+            case 0:
+                clarity = R.drawable.cloudy;
+                break;
+            case 1:
+                clarity = R.drawable.semicloudy;
+                break;
+            case 2:
+                clarity = R.drawable.normal;
+                break;
+            case 3:
+                clarity = R.drawable.semiclear;
+                break;
+            case 4:
+                clarity = R.drawable.clear;
+                break;
+        }
+
+
         Log.i(TAG, "here "+ date.toString());
         Log.i(TAG, "here "+ time.toString());
         Log.i(TAG, "here "+ title.toString());
@@ -136,8 +189,8 @@ public class MainActivity extends AppCompatActivity implements AddRecordFragment
         Log.i(TAG, "here "+ dayNotes.toString());
         Log.i(TAG, "here "+ tags.toString());
         Log.i(TAG, "here mood "+ mood);
-        Log.i(TAG, "here clarity "+ clarity);
         Log.i(TAG, "here quality "+ quality);
+        Log.i(TAG, "here clarity "+ clarity);
 
         //todo should save to DB...
 
@@ -145,23 +198,60 @@ public class MainActivity extends AppCompatActivity implements AddRecordFragment
 
     @Override
     public void save() {
-        ArrayList newRecords = new ArrayList();
-        newRecords.add(date);
-        newRecords.add(time);
-        newRecords.add(title);
-        newRecords.add(dreamNotes);
-        newRecords.add(dayNotes);
-        newRecords.add(tags);
-        newRecords.add(mood);
-        newRecords.add(clarity);
-        newRecords.add(quality);
+        Dream dreamToSave = new Dream(date, time, title, dreamNotes, dayNotes, tags, mood, quality, clarity);
 
         try {
-            saveDB(newRecords);
+            updateDB(dreamToSave, true);
         } catch (JSONException e) {
             e.printStackTrace();
-            Toast.makeText(this, " Save to DB has issues",Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void backToJournal() {
+        //journal_fragment = new JournalFragment();
+        setCurrentFragment(journal_fragment);
+    }
+
+    @Override
+    public ArrayList<Dream> loadDB() {
+
+        ArrayList<Dream> dreams = new ArrayList();
+
+        try {
+            JSONArray jsonArray = readDB();
+
+            for(int i=0; i < jsonArray.length(); i++ ) {
+                JSONObject obj = jsonArray.getJSONObject(i);
+                Dream dream = extractFromJSONObject(obj);
+                dreams.add(dream);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Cant load from DB",Toast.LENGTH_LONG).show();
+        }
+        return dreams;
+    }
+
+    public boolean updateDB(Dream dreamToUpdate, boolean addOrRemove) throws JSONException {
+
+        //read excisting records
+        JSONArray records = readDB();
+        //convert to JSONObject
+        JSONObject obj = convertToJasonObj(dreamToUpdate);
+
+        //add new record
+        if(addOrRemove){
+            records.put(obj);
+            saveDB(records);
+
+        //remove record
+        } else {
+
+            //todo on remove
+        }
+        return true;
     }
 
 
@@ -173,6 +263,7 @@ public class MainActivity extends AppCompatActivity implements AddRecordFragment
         }
 
         String path = getExternalFilesDir(null) + "/DreamsDiary";
+        System.out.println("PATH of file"+path);
         File file = new File(path ,"dreams_Records.txt");
 
         String content=null;
@@ -196,19 +287,21 @@ public class MainActivity extends AppCompatActivity implements AddRecordFragment
         System.out.println("File read success");
         System.out.println(content);
 
-        JSONArray arrfromFile = new JSONArray();
-
+        JSONArray arrfromFile = null;
         if(content != null){
-            JSONObject temp = new JSONObject(content);
-            arrfromFile.put(temp);
+            arrfromFile = new JSONArray(content);
 
+//            JSONObject temp = new JSONObject(content);
+//            arrfromFile.put(temp);
+
+        } else {
+            arrfromFile = new JSONArray();
         }
+
         return arrfromFile;
     }
 
-    public void saveDB(ArrayList<Dream> records) throws JSONException {
-
-        JSONObject objToSave = convertToJasonObj(records);
+    public void saveDB(JSONArray records) throws JSONException {
 
         if(isExternalStorageWritable()){
             try {
@@ -229,7 +322,7 @@ public class MainActivity extends AppCompatActivity implements AddRecordFragment
                 File files = new File(path,"dreams_Records.txt");
                 FileWriter fw;
                 fw = new FileWriter(files);
-                fw.write(String.valueOf(objToSave));
+                fw.write(String.valueOf(records));
                 fw.close();
                 Log.i("SaveToFile","Success 2");
 
@@ -241,30 +334,63 @@ public class MainActivity extends AppCompatActivity implements AddRecordFragment
         }
     }
 
-    public JSONObject convertToJasonObj(ArrayList<Dream> records) throws JSONException {
+    public JSONObject convertToJasonObj(Dream record) throws JSONException {
 
-        JSONArray recordsArray = new JSONArray();
+        //JSONArray recordsArray = new JSONArray();
 
+        JSONObject recordObj = new JSONObject();
+        JSONObject tagsObj = new JSONObject();
+        JSONArray tagsArr = new JSONArray();
 
-        JSONObject recordObj = null;
-        JSONObject tagsObj = null;
-        for (Dream dream : records) {
-            recordObj = new JSONObject();
-            recordObj.put("date",dream.getDate());
-            recordObj.put("title",dream.getTitle());
-            recordObj.put("dreamsNotice", dream.getDreamsNotice());
-            recordObj.put("dayNotice", dream.getDayNotice());
-            String[] tags = dream.getTags();
-            tagsObj.put("tags",tags);
-            recordObj.put("sleepQuantity", dream.getSleepQuantity());
-            recordObj.put("moodDream", dream.getMoodDream());
-            recordObj.put("clarityDream", dream.getClarityDream());
+        recordObj.put("date",record.getDate());
+        recordObj.put("time",record.getDate());
+        recordObj.put("title",record.getTitle());
+        recordObj.put("dreamsNotice", record.getDreamsNotice());
+        recordObj.put("dayNotice", record.getDayNotice());
+
+        String[] tags = record.getTags();
+        for (String tag : tags){
+            System.out.println("tag: "+ tag);
+
+            tagsArr.put(tag);
         }
-        recordsArray.put(recordObj);
+        //tagsObj.put("tags", tagsArr);
 
-        JSONObject recordObjs = new JSONObject(String.valueOf(recordsArray));
+        recordObj.put("tags",tagsArr);
+        recordObj.put("moodDream", record.getMoodDream());
+        recordObj.put("sleepQuantity", record.getSleepQuantity());
+        recordObj.put("clarityDream", record.getClarityDream());
 
-        return recordObjs;
+//        recordsArray.put(recordObj);
+//
+//        JSONObject recordObjs = new JSONObject(String.valueOf(recordsArray));
+
+        return recordObj;
+    }
+
+    public Dream extractFromJSONObject(JSONObject objToExtract){
+        Dream dream = null;
+        try {
+
+            JSONArray tagsarr = new JSONArray(objToExtract.getString("tags"));
+            String[] tags = new String[tagsarr.length()];
+            for(int i=0; i<tags.length; i++) {
+                tags[i] = tagsarr.optString(i);
+            }
+
+            dream = new Dream(objToExtract.getString("date"),
+                    objToExtract.getString("time"),
+                    objToExtract.getString("title"),
+                    objToExtract.getString("dreamsNotice"),
+                    objToExtract.getString("dayNotice"),
+                    tags,
+                    Integer.parseInt(objToExtract.getString("moodDream")),
+                    Integer.parseInt(objToExtract.getString("sleepQuantity")),
+                    Integer.parseInt(objToExtract.getString("clarityDream")) );
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return dream;
     }
 
     /* check do we have permision to memory */
@@ -276,4 +402,7 @@ public class MainActivity extends AppCompatActivity implements AddRecordFragment
         }
         return false;
     }
+
+
+
 }

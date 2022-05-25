@@ -1,7 +1,9 @@
 package bance.eutvikling.dreamsanddiary;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -13,6 +15,12 @@ import java.util.ArrayList;
 
 public class JournalFragment extends Fragment {
 
+    private JournalFragmentListener listener;
+
+    public interface JournalFragmentListener {
+        ArrayList<Dream> loadDB();
+    }
+
     ArrayList<Dream> listOfDreams;
     ListView list;
     ArrayListAdapter adapter;
@@ -21,42 +29,48 @@ public class JournalFragment extends Fragment {
         // Required empty public constructor
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_journal, container, false);
 
+
         //loading listView
         listOfDreams = new ArrayList<>();
 
+
+        listOfDreams= listener.loadDB();
+
         String[] tags = new String[] {"tag1", "tag2"};
-        Dream tmp1 = new Dream("19/05/2022", "First record", " Description " +
+        Dream tmp1 = new Dream("19/05/2022", "10:10", "First record", " Description " +
                 "DescriptionDescriptionDescriptionDescription DescriptionDescription Description " +
                 "Description Description Description Description", "day notice", tags, R.drawable.add_property, R.drawable.add_property,
                 R.drawable.add_property);
         listOfDreams.add(tmp1);
-        listOfDreams.add(new Dream("19/05/2022", "First record", " Description " +
+        listOfDreams.add(new Dream("19/05/2022", "10:10", "First record", " Description " +
                 "DescriptionDescriptionDescriptionDescription DescriptionDescription Description " +
                 "Description Description Description Description", "day notice", tags, R.drawable.add_property, R.drawable.add_property,
                 R.drawable.add_property));
-        listOfDreams.add(new Dream("19/05/2022", "First record", " Description " +
+        listOfDreams.add(new Dream("19/05/2022", "10:10", "First record", " Description " +
                 "DescriptionDescriptionDescriptionDescription DescriptionDescription Description " +
                 "Description Description Description Description", "day notice", tags, R.drawable.add_property, R.drawable.add_property,
                 R.drawable.add_property));
-        listOfDreams.add(new Dream("19/05/2022", "First record", " Description " +
+        listOfDreams.add(new Dream("19/05/2022", "10:10", "First record", " Description " +
                 "DescriptionDescriptionDescriptionDescription DescriptionDescription Description " +
                 "Description Description Description Description", "day notice", tags, R.drawable.add_property, R.drawable.add_property,
                 R.drawable.add_property));
-        listOfDreams.add(new Dream("19/05/2022", "First record", " Description " +
+        listOfDreams.add(new Dream("19/05/2022", "10:10", "First record", " Description " +
                 "DescriptionDescriptionDescriptionDescription DescriptionDescription Description " +
                 "Description Description Description Description", "day notice", tags, R.drawable.add_property, R.drawable.add_property,
                 R.drawable.add_property));
-        listOfDreams.add(new Dream("19/05/2022", "First record", " Description " +
+        listOfDreams.add(new Dream("19/05/2022", "10:10", "First record", " Description " +
                 "DescriptionDescriptionDescriptionDescription DescriptionDescription Description " +
                 "Description Description Description Description", "day notice", tags, R.drawable.add_property, R.drawable.add_property,
                 R.drawable.add_property));
-        listOfDreams.add(new Dream("19/05/2022", "First record", " Description " +
+        listOfDreams.add(new Dream("19/05/2022", "10:10", "First record", " Description " +
                 "DescriptionDescriptionDescriptionDescription DescriptionDescription Description " +
                 "Description Description Description Description", "day notice", tags, R.drawable.add_property, R.drawable.add_property,
                 R.drawable.add_property));
@@ -70,5 +84,22 @@ public class JournalFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof JournalFragmentListener){
+            listener = (JournalFragmentListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement JournalFragmentListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 }

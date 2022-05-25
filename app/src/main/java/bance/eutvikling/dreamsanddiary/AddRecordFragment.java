@@ -38,7 +38,7 @@ public class AddRecordFragment extends Fragment {
 //    private CharSequence tags;
 
     public interface AddRecordListener {
-        void onInputAssent(CharSequence date, CharSequence time, CharSequence title, CharSequence dreamNotes, CharSequence dayNotes, CharSequence tags);
+        void onInputAssent(CharSequence date, CharSequence time, CharSequence title, CharSequence dreamNotes, CharSequence dayNotes, String[] tags);
     }
 
     public AddRecordFragment() {
@@ -87,7 +87,9 @@ public class AddRecordFragment extends Fragment {
                 TextInputEditText dayNotesTitleText = (TextInputEditText)getActivity().findViewById(R.id.dayNotes);
                 CharSequence dayNotes = dayNotesTitleText.getText();
                 TextInputEditText tagstitleText = (TextInputEditText)getActivity().findViewById(R.id.tags);
-                CharSequence tags = tagstitleText.getText();
+
+                String allTags = tagstitleText.getText().toString();
+                String[] tags = allTags.split(",");
 
                 listener.onInputAssent(date, time, title, dreamNotes, dayNotes, tags);
             }

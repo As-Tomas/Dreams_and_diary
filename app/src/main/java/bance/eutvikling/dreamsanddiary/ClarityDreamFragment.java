@@ -22,6 +22,7 @@ public class ClarityDreamFragment extends Fragment {
     public interface ClarityDreamLitener {
         void saveClarityDream(int i);
         void save();
+        void backToJournal();
     }
 
     public ClarityDreamFragment() {
@@ -55,7 +56,7 @@ public class ClarityDreamFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                listener.saveClarityDream(0);
+                listener.saveClarityDream( 0);
             }
         });
 
@@ -101,6 +102,7 @@ public class ClarityDreamFragment extends Fragment {
             public void onClick(View view) {
 
                 listener.save();
+                listener.backToJournal();
             }
         });
     }

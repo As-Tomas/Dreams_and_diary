@@ -1,21 +1,25 @@
 package bance.eutvikling.dreamsanddiary;
 
 public class Dream {
-    private String date;
-    private String title;
-    private String dreamsNotice;
-    private String dayNotice;
+    private CharSequence date;
+    private CharSequence time;
+    private CharSequence title;
+    private CharSequence dreamsNotice;
+    private CharSequence dayNotice;
     private String[] tags;
     private int sleepQuantity;
     private int moodDream;
     private int clarityDream;
 
-    public Dream(String date) {
+    public Dream(){};
+
+    public Dream(CharSequence date) {
         this.date = date;
     }
 
-    public Dream(String date, String title, String dreamsNotice, String dayNotice, String[] tags, int sleepQuantity, int moodDream, int clarityDream) {
+    public Dream(CharSequence date, CharSequence time, CharSequence title, CharSequence dreamsNotice, CharSequence dayNotice, String[] tags, int sleepQuantity, int moodDream, int clarityDream) {
         this.date = date;
+        this.time = time;
         this.title = title;
         this.dreamsNotice = dreamsNotice;
         this.dayNotice = dayNotice;
@@ -25,35 +29,43 @@ public class Dream {
         this.clarityDream = clarityDream;
     }
 
-    public String getDate() {
+    public CharSequence getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(CharSequence date) {
         this.date = date;
     }
 
-    public String getTitle() {
+    public CharSequence getTime() {
+        return time;
+    }
+
+    public void setTime(CharSequence time) {
+        this.time = time;
+    }
+
+    public CharSequence getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(CharSequence title) {
         this.title = title;
     }
 
-    public String getDreamsNotice() {
+    public CharSequence getDreamsNotice() {
         return dreamsNotice;
     }
 
-    public void setDreamsNotice(String dreamsNotice) {
+    public void setDreamsNotice(CharSequence dreamsNotice) {
         this.dreamsNotice = dreamsNotice;
     }
 
-    public String getDayNotice() {
+    public CharSequence getDayNotice() {
         return dayNotice;
     }
 
-    public void setDayNotice(String dayNotice) {
+    public void setDayNotice(CharSequence dayNotice) {
         this.dayNotice = dayNotice;
     }
 

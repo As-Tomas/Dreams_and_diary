@@ -44,7 +44,10 @@ public class ArrayListAdapter extends ArrayAdapter<Dream> {
         icon.setImageResource(dream_record.getMoodDream());
         title.setText(dream_record.getTitle());
         description.setText(dream_record.getDreamsNotice());
-        tags.setText(dream_record.getTags().toString());
+
+        // convert for display
+        String allTags = String.join(", ", dream_record.getTags());
+        tags.setText(allTags);
 
         return view;
 
