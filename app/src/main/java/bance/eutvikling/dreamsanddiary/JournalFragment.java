@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class JournalFragment extends Fragment {
 
@@ -43,6 +45,14 @@ public class JournalFragment extends Fragment {
 
 
         listOfDreams= listener.loadDB();
+
+        //sorting
+        Collections.sort(listOfDreams, new Comparator<Dream>() {
+            public int compare(Dream o1, Dream o2) {
+                return o1.getDate().toString().compareTo(o2.getDate().toString());
+            }
+        });
+        Collections.reverse(listOfDreams);
 
         String[] tags = new String[] {"tag1", "tag2"};
         Dream tmp1 = new Dream("19/05/2022", "10:10", "First record", " Description " +
