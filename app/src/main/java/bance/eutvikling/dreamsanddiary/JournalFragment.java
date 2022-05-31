@@ -54,36 +54,13 @@ public class JournalFragment extends Fragment {
         });
         Collections.reverse(listOfDreams);
 
-        String[] tags = new String[] {"tag1", "tag2"};
-        Dream tmp1 = new Dream("19/05/2022", "10:10", "First record", " Description " +
-                "DescriptionDescriptionDescriptionDescription DescriptionDescription Description " +
-                "Description Description Description Description", "day notice", tags, R.drawable.add_property, R.drawable.add_property,
-                R.drawable.add_property);
-        listOfDreams.add(tmp1);
-        listOfDreams.add(new Dream("19/05/2022", "10:10", "First record", " Description " +
-                "DescriptionDescriptionDescriptionDescription DescriptionDescription Description " +
-                "Description Description Description Description", "day notice", tags, R.drawable.add_property, R.drawable.add_property,
-                R.drawable.add_property));
-        listOfDreams.add(new Dream("19/05/2022", "10:10", "First record", " Description " +
-                "DescriptionDescriptionDescriptionDescription DescriptionDescription Description " +
-                "Description Description Description Description", "day notice", tags, R.drawable.add_property, R.drawable.add_property,
-                R.drawable.add_property));
-        listOfDreams.add(new Dream("19/05/2022", "10:10", "First record", " Description " +
-                "DescriptionDescriptionDescriptionDescription DescriptionDescription Description " +
-                "Description Description Description Description", "day notice", tags, R.drawable.add_property, R.drawable.add_property,
-                R.drawable.add_property));
-        listOfDreams.add(new Dream("19/05/2022", "10:10", "First record", " Description " +
-                "DescriptionDescriptionDescriptionDescription DescriptionDescription Description " +
-                "Description Description Description Description", "day notice", tags, R.drawable.add_property, R.drawable.add_property,
-                R.drawable.add_property));
-        listOfDreams.add(new Dream("19/05/2022", "10:10", "First record", " Description " +
-                "DescriptionDescriptionDescriptionDescription DescriptionDescription Description " +
-                "Description Description Description Description", "day notice", tags, R.drawable.add_property, R.drawable.add_property,
-                R.drawable.add_property));
-        listOfDreams.add(new Dream("19/05/2022", "10:10", "First record", " Description " +
-                "DescriptionDescriptionDescriptionDescription DescriptionDescription Description " +
-                "Description Description Description Description", "day notice", tags, R.drawable.add_property, R.drawable.add_property,
-                R.drawable.add_property));
+//        String[] tags = new String[] {"tag1", "tag2"};
+//        Dream tmp1 = new Dream("19/05/2022", "10:10", "First record", " Description " +
+//                "DescriptionDescriptionDescriptionDescription DescriptionDescription Description " +
+//                "Description Description Description Description", "day notice", tags, R.drawable.add_property, R.drawable.add_property,
+//                R.drawable.add_property);
+//        listOfDreams.add(tmp1);
+
 
         adapter = new ArrayListAdapter(listOfDreams, view.getContext());
 
