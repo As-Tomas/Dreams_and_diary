@@ -123,7 +123,6 @@ public class JournalFragment extends Fragment {
     }
 
 
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
