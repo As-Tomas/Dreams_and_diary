@@ -4,12 +4,17 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -69,9 +74,55 @@ public class JournalFragment extends Fragment {
 
         //todo add context menu: delete, edit
 
+        //setHasOptionsMenu(true);
+        registerForContextMenu(list);
+
+//        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                //Musu norimas kodas
+//                // i kintamasis nurodys paspausto elemento pozicija
+//                Dream paspaustas=listOfDreams.get(i);
+//                Toast.makeText(view.getContext(),paspaustas.getTitle(),Toast.LENGTH_LONG).show();
+//                //...
+//            }
+//        });
+
         // Inflate the layout for this fragment
         return view;
     }
+
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        menu.setHeaderTitle("Chose option"); //menu title
+        //menu commands
+        menu.add(0, v.getId(),0,"Edit");
+        menu.add(0, v.getId(),0,"Delete");
+    }
+
+    // when user choose one option form menu
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+
+        if(item.getTitle().equals("Edit")) {
+            //TODO temporary use as delete all, later update to edit fragment
+            listOfDreams.clear();
+            adapter.notifyDataSetChanged();
+
+        }else if(item.getTitle().equals("Delete")){
+            int index=item.getItemId();//Meniu ID is same as selected item
+            ////ListView iraso elementui uzdejom id (Adapteryje) kuris sutampa su iraso numeriu ir ji panaudojam trynimui nes ir masyve tie duomenys bus toj paciuj vietoj
+            //We assigned an id (in the Adapter) and it matches to the ListView record element and uses it to delete it because the data will be in the same place in the array.
+            listOfDreams.remove(index);
+            adapter.notifyDataSetChanged();
+        }
+        return super.onContextItemSelected(item);
+    }
+
+
 
     @Override
     public void onAttach(@NonNull Context context) {
