@@ -30,12 +30,7 @@ import java.time.temporal.TemporalAccessor;
 public class AddRecordFragment extends Fragment {
 
     private AddRecordListener listener;
-   // private CharSequence date;
-//    private CharSequence time;
-//    private CharSequence title;
-//    private CharSequence dreamNotes;
-//    private CharSequence dayNotes;
-//    private CharSequence tags;
+
 
     public interface AddRecordListener {
         void onInputAssent(CharSequence date, CharSequence time, CharSequence title, CharSequence dreamNotes, CharSequence dayNotes, String[] tags);
