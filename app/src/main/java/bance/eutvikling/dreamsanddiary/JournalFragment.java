@@ -1,12 +1,14 @@
 package bance.eutvikling.dreamsanddiary;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -26,6 +28,7 @@ public class JournalFragment extends Fragment {
 
     public interface JournalFragmentListener {
         ArrayList<Dream> loadDB();
+
     }
 
     ArrayList<Dream> listOfDreams;
@@ -72,25 +75,31 @@ public class JournalFragment extends Fragment {
         list = view.findViewById(R.id.list);
         list.setAdapter(adapter);
 
-        //todo add context menu: delete, edit
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-        //setHasOptionsMenu(true);
-//        registerForContextMenu(list);
+                Dream chosen=listOfDreams.get(i);
 
-//        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                //Musu norimas kodas
-//                // i kintamasis nurodys paspausto elemento pozicija
-//                Dream paspaustas=listOfDreams.get(i);
-//                Toast.makeText(view.getContext(),paspaustas.getTitle(),Toast.LENGTH_LONG).show();
-//                //...
-//            }
-//        });
+                PreviewDreamFragment prevFrag= new PreviewDreamFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString(PreviewDreamFragment.ARG_TIME, chosen.getDate().toString() + " " + chosen.getTime().toString());
+                bundle.putString(PreviewDreamFragment.ARG_TITLE, chosen.getTitle().toString());
+                bundle.putString(PreviewDreamFragment.ARG_DREAM_NOTES, chosen.getDreamsNotice().toString());
+                bundle.putString(PreviewDreamFragment.ARG_DAY_NOTES, chosen.getDayNotice().toString());
+                bundle.putString(PreviewDreamFragment.ARG_TAGS, chosen.getTags().toString());
+                prevFrag.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame, prevFrag, "findThisFragment")
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
-        // Inflate the layout for this fragment
         return view;
     }
+
+//    Context menu but there is bug with id clean up (postpone for future integrations)
 
 //    @Override
 //    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
