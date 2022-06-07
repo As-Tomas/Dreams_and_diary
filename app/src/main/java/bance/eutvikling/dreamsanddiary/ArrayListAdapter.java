@@ -55,10 +55,7 @@ public class ArrayListAdapter extends ArrayAdapter<Dream> {
         String allTags = String.join(", ", dream_record.getTags());
         tags.setText(allTags);
 
-        //if want to use context menu
         view.setId(position);//For an individual record, we assign an id that matches the record number
-//        ((MainActivity)context).registerForContextMenu(view);
-        //end context meniu
 
         return view;
 
