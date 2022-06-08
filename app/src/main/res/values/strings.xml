@@ -8,4 +8,6 @@
     <string name="dreamNotes">Describe your dream in details here.</string>
     <string name="dayNotes">Describe your day in details</string>
     <string name="tags">Add your tags here</string>
+    <string name="option_edit"> Edit</string>
+    <string name="option_delete"> Delete</string>
 </resources>

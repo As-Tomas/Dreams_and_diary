@@ -8,9 +8,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class PreviewDreamFragment extends Fragment {
 
@@ -19,6 +23,7 @@ public class PreviewDreamFragment extends Fragment {
     public static final String ARG_DREAM_NOTES="dreamNotes" ;
     public static final String ARG_DAY_NOTES="dayNotes" ;
     public static final String ARG_TAGS="tags" ;
+    public static final String  ARG_ID= "Id" ;
 
 
 
@@ -59,11 +64,43 @@ public class PreviewDreamFragment extends Fragment {
             time.setText("No time arg");
         }
 
+        //display options menu Edit, Delete
+        setHasOptionsMenu(true);
 
         return view;
     }
 
-//    @Override
+    @Override
+    public void  onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.overflow_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        Bundle args = getArguments();
+        int id=-1;
+        if(args != null) {
+            id = args.getInt(ARG_ID);
+        }
+
+        switch (item.getItemId()) {
+            case R.id.option_edit:
+                // Edit item was selected
+                Toast.makeText(getActivity(),"Edit id: "+ id,Toast.LENGTH_SHORT).show();
+                //TODO implement Edit actions
+                return true;
+            case R.id.option_delete:
+                // Delete item was selected
+                //TODO implement delete actions
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    //    @Override
 //    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 //        super.onViewCreated(view, savedInstanceState);
 //    }

@@ -88,6 +88,7 @@ public class JournalFragment extends Fragment {
                 bundle.putString(PreviewDreamFragment.ARG_DREAM_NOTES, chosen.getDreamsNotice().toString());
                 bundle.putString(PreviewDreamFragment.ARG_DAY_NOTES, chosen.getDayNotice().toString());
                 bundle.putString(PreviewDreamFragment.ARG_TAGS, chosen.getTags().toString());
+                bundle.putInt(PreviewDreamFragment.ARG_ID, i);
                 prevFrag.setArguments(bundle);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frame, prevFrag, "findThisFragment")
