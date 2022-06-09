@@ -32,6 +32,12 @@ public class Dream {
     public CharSequence getDate() {
         return date;
     }
+    public CharSequence getDateAndTime() {
+        String d = date.toString();
+        String t = time.toString();
+        String n = d + t;
+        return n;
+    }
 
     public void setDate(CharSequence date) {
         this.date = date;

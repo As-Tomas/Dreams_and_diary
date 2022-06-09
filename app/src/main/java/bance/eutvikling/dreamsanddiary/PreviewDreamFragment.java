@@ -1,5 +1,6 @@
 package bance.eutvikling.dreamsanddiary;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -7,16 +8,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class PreviewDreamFragment extends Fragment {
+
+    private PreviewDreamFragmentListener listener;
+
+    public interface PreviewDreamFragmentListener {
+        void editSelectedRecord(int id);
+        void deleteSelectedRecord(int id);
+    }
 
     public static final String ARG_TIME="Time" ;
     public static final String ARG_TITLE="title" ;
@@ -81,8 +91,9 @@ public class PreviewDreamFragment extends Fragment {
 
         Bundle args = getArguments();
         int id=-1;
-        if(args != null) {
+        if(args != null ) {
             id = args.getInt(ARG_ID);
+            Log.i("Place three: ", String.valueOf(id));
         }
 
         switch (item.getItemId()) {
@@ -90,14 +101,33 @@ public class PreviewDreamFragment extends Fragment {
                 // Edit item was selected
                 Toast.makeText(getActivity(),"Edit id: "+ id,Toast.LENGTH_SHORT).show();
                 //TODO implement Edit actions
+                listener.editSelectedRecord(id);
                 return true;
             case R.id.option_delete:
                 // Delete item was selected
                 //TODO implement delete actions
+                listener.deleteSelectedRecord(id);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if( context instanceof PreviewDreamFragmentListener){
+            listener = (PreviewDreamFragmentListener) context;
+        } else {
+            throw new RuntimeException( context.toString() +
+                    " must implement PreviewDreamFragmentListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 
     //    @Override

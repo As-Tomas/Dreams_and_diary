@@ -55,12 +55,12 @@ public class JournalFragment extends Fragment {
         listOfDreams= listener.loadDB();
 
         //sorting
-        Collections.sort(listOfDreams, new Comparator<Dream>() {
-            public int compare(Dream o1, Dream o2) {
-                return o1.getDate().toString().compareTo(o2.getDate().toString());
-            }
-        });
-        Collections.reverse(listOfDreams);
+//        Collections.sort(listOfDreams, new Comparator<Dream>() {
+//            public int compare(Dream o1, Dream o2) {
+//                return o1.getDate().toString().compareTo(o2.getDate().toString());
+//            }
+//        });
+//        Collections.reverse(listOfDreams);
 
 //        String[] tags = new String[] {"tag1", "tag2"};
 //        Dream tmp1 = new Dream("19/05/2022", "10:10", "First record", " Description " +
@@ -83,12 +83,13 @@ public class JournalFragment extends Fragment {
 
                 PreviewDreamFragment prevFrag= new PreviewDreamFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString(PreviewDreamFragment.ARG_TIME, chosen.getDate().toString() + " " + chosen.getTime().toString());
+                bundle.putString(PreviewDreamFragment.ARG_TIME, chosen.getDateAndTime().toString());
                 bundle.putString(PreviewDreamFragment.ARG_TITLE, chosen.getTitle().toString());
                 bundle.putString(PreviewDreamFragment.ARG_DREAM_NOTES, chosen.getDreamsNotice().toString());
                 bundle.putString(PreviewDreamFragment.ARG_DAY_NOTES, chosen.getDayNotice().toString());
                 bundle.putString(PreviewDreamFragment.ARG_TAGS, chosen.getTags().toString());
                 bundle.putInt(PreviewDreamFragment.ARG_ID, i);
+                Log.i("id: ", String.valueOf(i));
                 prevFrag.setArguments(bundle);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frame, prevFrag, "findThisFragment")

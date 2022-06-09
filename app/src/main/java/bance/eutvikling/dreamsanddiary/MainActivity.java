@@ -26,8 +26,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
-public class MainActivity extends AppCompatActivity implements JournalFragment.JournalFragmentListener, AddRecordFragment.AddRecordListener, MoodFragment.MoodListener, SleepQualityFragment.SleepQualityListener, ClarityDreamFragment.ClarityDreamLitener {
+public class MainActivity extends AppCompatActivity implements JournalFragment.JournalFragmentListener, AddRecordFragment.AddRecordListener, MoodFragment.MoodListener, SleepQualityFragment.SleepQualityListener, ClarityDreamFragment.ClarityDreamLitener, PreviewDreamFragment.PreviewDreamFragmentListener {
 
     BottomNavigationView bottomNavigationView;
 
@@ -216,6 +218,26 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
     }
 
     @Override
+    public void editSelectedRecord(int id) {
+
+        //TODO on edit
+    }
+
+    @Override
+    public void deleteSelectedRecord(int id) {
+
+        try {
+            if(removeRecordFromDB(id)){
+                Toast.makeText(this,"Record was removed ",Toast.LENGTH_SHORT).show();
+            };
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        setCurrentFragment(journal_fragment);
+    }
+
+    @Override
     public ArrayList<Dream> loadDB() {
 
         ArrayList<Dream> dreams = new ArrayList();
@@ -238,21 +260,46 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
 
     public boolean updateDB(Dream dreamToUpdate, boolean addOrRemove) throws JSONException {
 
-        //read excisting records
-        JSONArray records = readDB();
-        //convert to JSONObject
-        JSONObject obj = convertToJasonObj(dreamToUpdate);
+        ArrayList<Dream> recordsArr = loadDB();
+        //add new one
+        recordsArr.add(dreamToUpdate);
 
-        //add new record
+        JSONArray records = new JSONArray();
+
+        if (recordsArr.size() > 0) {
+
+            Collections.sort(recordsArr, new Comparator<Dream>() {
+                public int compare(Dream o1, Dream o2) {
+                    return o1.getDateAndTime().toString().compareTo(o2.getDateAndTime().toString());
+                }
+            });
+            Collections.reverse(recordsArr);
+            for (int i =0; i<recordsArr.size(); i++){
+                JSONObject obj = convertToJasonObj(recordsArr.get(i));
+                records.put(obj);
+            }
+        }
+
         if(addOrRemove){
-            records.put(obj);
             saveDB(records);
 
         //remove record
         } else {
-
             //todo on remove
+            // for remove we use index, next function removeRecordFromDB()
         }
+        return true;
+    }
+
+    public boolean removeRecordFromDB( int indexOfRecord) throws JSONException {
+
+        //read existing records
+        JSONArray records = readDB();
+
+        records.remove(indexOfRecord);
+
+        saveDB(records);
+
         return true;
     }
 
@@ -345,7 +392,7 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
         JSONArray tagsArr = new JSONArray();
 
         recordObj.put("date",record.getDate());
-        recordObj.put("time",record.getDate());
+        recordObj.put("time",record.getTime());
         recordObj.put("title",record.getTitle());
         recordObj.put("dreamsNotice", record.getDreamsNotice());
         recordObj.put("dayNotice", record.getDayNotice());
@@ -404,7 +451,5 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
         }
         return false;
     }
-
-
 
 }
