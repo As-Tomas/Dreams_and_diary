@@ -53,7 +53,9 @@ public class ArrayListAdapter extends ArrayAdapter<Dream> {
 
         // convert for display
         String allTags = String.join(", ", dream_record.getTags());
-        tags.setText(allTags);
+        if(allTags.length() > 1) {
+            tags.setText("Tags: \n"+allTags); // set title to separate from text
+        }
 
         view.setId(position);//For an individual record, we assign an id that matches the record number
 
