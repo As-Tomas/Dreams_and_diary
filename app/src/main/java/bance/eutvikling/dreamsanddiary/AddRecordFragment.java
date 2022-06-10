@@ -29,15 +29,68 @@ import java.time.temporal.TemporalAccessor;
 
 public class AddRecordFragment extends Fragment {
 
+    private static final String ARG_ID = "id";
+    private static final String ARG_DATE ="date";
+    private static final String ARG_TIME = "timeArg";
+    private static final String ARG_TITLE="title" ;
+    private static final String ARG_DREAM_NOTES="dreamNotes" ;
+    private static final String ARG_DAY_NOTES="dayNotes" ;
+    private static final String ARG_TAGS="tags" ;
+
+    private int id;
+    private String date;
+    private String timeArg;
+    private String title;
+    private String dreamNotes;
+    private String dayNotes;
+    private String tags;
+
     private AddRecordListener listener;
 
 
     public interface AddRecordListener {
+        void onInputAssent(CharSequence date, CharSequence time, CharSequence title, CharSequence dreamNotes, CharSequence dayNotes, String[] tags, int id);
         void onInputAssent(CharSequence date, CharSequence time, CharSequence title, CharSequence dreamNotes, CharSequence dayNotes, String[] tags);
     }
 
     public AddRecordFragment() {
         // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @return A new instance of fragment AddRecordFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static AddRecordFragment newInstance(int param1, String param2, String param3, String param4, String param5, String param6, String param7) {
+        AddRecordFragment fragment = new AddRecordFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_ID, param1);
+        args.putString(ARG_DATE, param2);
+        args.putString(ARG_TIME, param3);
+        args.putString(ARG_TITLE, param4);
+        args.putString(ARG_DREAM_NOTES, param5);
+        args.putString(ARG_DAY_NOTES, param6);
+        args.putString(ARG_TAGS, param7);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            id = getArguments().getInt(ARG_ID);
+            date = getArguments().getString(ARG_DATE);
+            timeArg = getArguments().getString(ARG_TIME);
+            title = getArguments().getString(ARG_TITLE);
+            dreamNotes = getArguments().getString(ARG_DREAM_NOTES);
+            dayNotes = getArguments().getString(ARG_DAY_NOTES);
+            tags = getArguments().getString(ARG_TAGS);
+        }
     }
 
     @Override
@@ -46,15 +99,36 @@ public class AddRecordFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_add_record, container, false);
 
-        DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        DateTimeFormatter time = DateTimeFormatter.ofPattern("HH:mm");
-        LocalDateTime dateNow = LocalDateTime.now();
+        if (getArguments() != null){
 
-        TextInputEditText dateFeald = (TextInputEditText)view.findViewById(R.id.date);
-        dateFeald.setText(date.format(dateNow));
+            TextInputEditText dateField = (TextInputEditText)view.findViewById(R.id.date);
+            dateField.setText(date);
 
-        TextInputEditText timeTitleText = (TextInputEditText)view.findViewById(R.id.time);
-        timeTitleText.setText(time.format(dateNow));
+            TextInputEditText timeTitleText = (TextInputEditText)view.findViewById(R.id.time);
+            timeTitleText.setText(timeArg);
+
+
+            TextInputEditText titleText = (TextInputEditText)view.findViewById(R.id.title);
+            titleText.setText(title);
+            TextInputEditText dreamNotesTitleText = (TextInputEditText)view.findViewById(R.id.dreamNotes);
+            dreamNotesTitleText.setText(dreamNotes);
+            TextInputEditText dayNotesTitleText = (TextInputEditText)view.findViewById(R.id.dayNotes);
+            dayNotesTitleText.setText(dayNotes);
+            TextInputEditText tagsTitleText = (TextInputEditText)view.findViewById(R.id.tags);
+            tagsTitleText.setText(tags);
+
+
+        } else {
+            DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            DateTimeFormatter time = DateTimeFormatter.ofPattern("HH:mm");
+            LocalDateTime dateNow = LocalDateTime.now();
+
+            TextInputEditText dateField = (TextInputEditText)view.findViewById(R.id.date);
+            dateField.setText(date.format(dateNow));
+
+            TextInputEditText timeTitleText = (TextInputEditText)view.findViewById(R.id.time);
+            timeTitleText.setText(time.format(dateNow));
+        }
 
         return view;
     }
@@ -81,12 +155,17 @@ public class AddRecordFragment extends Fragment {
                 CharSequence dreamNotes = dreamNotesTitleText.getText();
                 TextInputEditText dayNotesTitleText = (TextInputEditText)getActivity().findViewById(R.id.dayNotes);
                 CharSequence dayNotes = dayNotesTitleText.getText();
-                TextInputEditText tagstitleText = (TextInputEditText)getActivity().findViewById(R.id.tags);
+                TextInputEditText tagsTitleText = (TextInputEditText)getActivity().findViewById(R.id.tags);
 
-                String allTags = tagstitleText.getText().toString();
+                String allTags = tagsTitleText.getText().toString();
                 String[] tags = allTags.split(",");
 
-                listener.onInputAssent(date, time, title, dreamNotes, dayNotes, tags);
+                if (getArguments() != null){
+                    listener.onInputAssent(date, time, title, dreamNotes, dayNotes, tags, id);
+                } else {
+                    listener.onInputAssent(date, time, title, dreamNotes, dayNotes, tags);
+                }
+
             }
         });
 

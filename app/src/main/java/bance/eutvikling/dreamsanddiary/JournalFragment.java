@@ -83,11 +83,13 @@ public class JournalFragment extends Fragment {
 
                 PreviewDreamFragment prevFrag= new PreviewDreamFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString(PreviewDreamFragment.ARG_TIME, chosen.getDateAndTime().toString());
+                bundle.putString(PreviewDreamFragment.ARG_DATE_TIME, chosen.getDateAndTime().toString()); //for display in preview
+                bundle.putString(PreviewDreamFragment.ARG_DATE, chosen.getDate().toString());
+                bundle.putString(PreviewDreamFragment.ARG_TIME, chosen.getTime().toString());
                 bundle.putString(PreviewDreamFragment.ARG_TITLE, chosen.getTitle().toString());
                 bundle.putString(PreviewDreamFragment.ARG_DREAM_NOTES, chosen.getDreamsNotice().toString());
                 bundle.putString(PreviewDreamFragment.ARG_DAY_NOTES, chosen.getDayNotice().toString());
-                bundle.putString(PreviewDreamFragment.ARG_TAGS, chosen.getTags().toString());
+                bundle.putString(PreviewDreamFragment.ARG_TAGS,  String.join(", ",chosen.getTags()));
                 bundle.putInt(PreviewDreamFragment.ARG_ID, i);
                 Log.i("id: ", String.valueOf(i));
                 prevFrag.setArguments(bundle);

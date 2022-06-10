@@ -24,11 +24,20 @@ public class PreviewDreamFragment extends Fragment {
     private PreviewDreamFragmentListener listener;
 
     public interface PreviewDreamFragmentListener {
-        void editSelectedRecord(int id);
+        void editSelectedRecord(int id,
+                                String string, String timeArg,
+                                String titleArg,
+                                String dreamNotesArg,
+                                String dayNotesArg,
+                                String TagsArg);
+
         void deleteSelectedRecord(int id);
     }
 
-    public static final String ARG_TIME="Time" ;
+    public static final String ARG_DATE_TIME="dateAndTime";
+
+    public static final String ARG_DATE="date";
+    public static final String ARG_TIME="time" ;
     public static final String ARG_TITLE="title" ;
     public static final String ARG_DREAM_NOTES="dreamNotes" ;
     public static final String ARG_DAY_NOTES="dayNotes" ;
@@ -58,7 +67,7 @@ public class PreviewDreamFragment extends Fragment {
 
         Bundle args = getArguments();
         if(args != null) {
-            String timeArg = args.getString(ARG_TIME);
+            String timeArg = args.getString(ARG_DATE) + " " +args.getString(ARG_TIME);
             String titleArg = args.getString(ARG_TITLE);
             String dreamNotesArg =  args.getString(ARG_DREAM_NOTES);
             String dayNotesArg = args.getString(ARG_DAY_NOTES);
@@ -93,15 +102,20 @@ public class PreviewDreamFragment extends Fragment {
         int id=-1;
         if(args != null ) {
             id = args.getInt(ARG_ID);
-            Log.i("Place three: ", String.valueOf(id));
         }
 
         switch (item.getItemId()) {
             case R.id.option_edit:
                 // Edit item was selected
-                Toast.makeText(getActivity(),"Edit id: "+ id,Toast.LENGTH_SHORT).show();
                 //TODO implement Edit actions
-                listener.editSelectedRecord(id);
+                listener.editSelectedRecord( id,
+                        args.getString(ARG_DATE),
+                        args.getString(ARG_TIME),
+                        args.getString(ARG_TITLE),
+                        args.getString(ARG_DREAM_NOTES),
+                        args.getString(ARG_DAY_NOTES),
+                        args.getString(ARG_TAGS));
+
                 return true;
             case R.id.option_delete:
                 // Delete item was selected

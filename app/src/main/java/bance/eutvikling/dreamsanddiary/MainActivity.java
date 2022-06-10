@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
     private CharSequence dreamNotes;
     private CharSequence dayNotes;
     private String[] tags;
+    private int idToEdit = -1;
     private int mood;
     private int quality;
     private int clarity;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
                         setCurrentFragment(journal_fragment);
                         return true;
                     case R.id.addNew:
+                        add_record_fragment = new AddRecordFragment();
                         setCurrentFragment(add_record_fragment);
                         return true;
                     case R.id.search:
@@ -92,6 +94,22 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
                 .replace(R.id.frame, fragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public void onInputAssent(CharSequence date, CharSequence time, CharSequence title, CharSequence dreamNotes, CharSequence dayNotes, String[] tags, int id) {
+
+        this.date =date;
+        this.time = time;
+        this.title = title;
+        this.dreamNotes = dreamNotes;
+        this.dayNotes = dayNotes;
+        this.tags = tags;
+        this.idToEdit = id;
+
+        dreamMoodFragment = new MoodFragment();
+        setCurrentFragment(dreamMoodFragment);
+
     }
 
     @Override
@@ -202,13 +220,21 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
     public void save() {
         Dream dreamToSave = new Dream(date, time, title, dreamNotes, dayNotes, tags, mood, quality, clarity);
 
-        try {
-            updateDB(dreamToSave, true);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        //to edit record,
+        if(idToEdit >= 0){
+            editRecord(dreamToSave);
+
+        } else {  // save new record
+            try {
+                updateDB(dreamToSave, true);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            // reset for new window new instance
+            add_record_fragment = new AddRecordFragment();
         }
-        // reset for new window new instance
-        add_record_fragment = new AddRecordFragment();
+
+
     }
 
     @Override
@@ -218,9 +244,17 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
     }
 
     @Override
-    public void editSelectedRecord(int id) {
+    public void editSelectedRecord(int id,
+                                   String date,
+                                   String timeArg,
+                                   String titleArg,
+                                   String dreamNotesArg,
+                                   String dayNotesArg,
+                                   String TagsArg) {
 
-        //TODO on edit
+        Fragment add_record_fragmentNew = AddRecordFragment.newInstance(id, date, timeArg, titleArg, dreamNotesArg, dayNotesArg, TagsArg);
+
+        setCurrentFragment(add_record_fragmentNew);
     }
 
     @Override
@@ -258,6 +292,82 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
         return dreams;
     }
 
+    // edit records in JSON by index if time changed sort has not applied !!! after new record sort applies...
+    public void editRecord(Dream dreamToSave){
+
+
+        ArrayList<Dream> records = loadDB();
+
+//        Log.i("Record: ", records.get(idToEdit).getTitle().toString());
+//        Log.i("size: ", String.valueOf(records.size()));
+//        records.add(idToEdit,dreamToSave);
+//        Log.i("Record: ", records.get(idToEdit).getTitle().toString());
+//        Log.i("size: ", String.valueOf(records.size()));
+
+        Log.i("Record ID : ", String.valueOf(idToEdit));
+        try {
+            removeRecordFromDB(idToEdit);
+            updateDB(dreamToSave, true);
+            idToEdit = -1;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+//        try {
+//            //read existing records
+//            JSONArray records = readDB();
+//
+//            JSONObject obj = (JSONObject) records.get(idToEdit);
+//            Log.i("how it looks: ", obj.toString());
+//
+//
+//            if(!obj.getString("date").equals(dreamToSave.getDate().toString())){
+//                obj.put("date",dreamToSave.getDate().toString());
+//            }
+//            if(!obj.getString("time").equals(dreamToSave.getTime().toString())){
+//                obj.put("time",dreamToSave.getTime().toString());
+//            }
+//            if(!obj.getString("title").equals(dreamToSave.getTitle().toString())){
+//                obj.put("title",dreamToSave.getTitle().toString());
+//            }
+//            if(!obj.getString("dreamsNotice").equals(dreamToSave.getDreamsNotice().toString())){
+//                obj.put("dreamsNotice",dreamToSave.getDreamsNotice().toString());
+//            }
+//            if(!obj.getString("dayNotice").equals(dreamToSave.getDayNotice().toString())){
+//                obj.put("dayNotice",dreamToSave.getDayNotice().toString());
+//            }
+//
+//            JSONArray newTagsJSONArr =  new JSONArray();
+//
+//            String[] newTagsArr = dreamToSave.getTags();
+//            for(int i=0; i < newTagsArr.length; i++){
+//                newTagsJSONArr.put(newTagsArr[i]);
+//            }
+//            obj.put("tags",newTagsJSONArr);
+//
+//            if(obj.getInt("moodDream") != dreamToSave.getMoodDream()){
+//                obj.put("moodDream",dreamToSave.getMoodDream());
+//            }
+//            if(obj.getInt("sleepQuantity") != dreamToSave.getSleepQuantity()){
+//                obj.put("sleepQuantity",dreamToSave.getSleepQuantity());
+//            }
+//            if(obj.getInt("clarityDream") != dreamToSave.getClarityDream()){
+//                obj.put("clarityDream",dreamToSave.getClarityDream());
+//            }
+//
+//            Log.i("how it looks: ", obj.toString());
+//
+//            records.put(idToEdit, obj);
+//
+//            saveDB(records);
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+
+    };
+
     public boolean updateDB(Dream dreamToUpdate, boolean addOrRemove) throws JSONException {
 
         ArrayList<Dream> recordsArr = loadDB();
@@ -274,6 +384,7 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
                 }
             });
             Collections.reverse(recordsArr);
+
             for (int i =0; i<recordsArr.size(); i++){
                 JSONObject obj = convertToJasonObj(recordsArr.get(i));
                 records.put(obj);
@@ -312,7 +423,7 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
         }
 
         String path = getExternalFilesDir(null) + "/DreamsDiary";
-        System.out.println("PATH of file"+path);
+//        System.out.println("PATH of file"+path);
         File file = new File(path ,"dreams_Records.txt");
 
         String content=null;
@@ -399,7 +510,7 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
 
         String[] tags = record.getTags();
         for (String tag : tags){
-            System.out.println("tag: "+ tag);
+//            System.out.println("tag: "+ tag);
 
             tagsArr.put(tag);
         }
