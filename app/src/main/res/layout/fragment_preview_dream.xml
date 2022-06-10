@@ -17,14 +17,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp" />
 
-        <!-- TODO implement button actions -->
-        <Button
-            android:id="@+id/edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:text="edit" />
-
         <!-- TODO set text size BOLD -->
         <TextView
             android:id="@+id/title"

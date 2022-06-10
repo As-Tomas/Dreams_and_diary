@@ -107,7 +107,6 @@ public class PreviewDreamFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.option_edit:
                 // Edit item was selected
-                //TODO implement Edit actions
                 listener.editSelectedRecord( id,
                         args.getString(ARG_DATE),
                         args.getString(ARG_TIME),
@@ -119,7 +118,6 @@ public class PreviewDreamFragment extends Fragment {
                 return true;
             case R.id.option_delete:
                 // Delete item was selected
-                //TODO implement delete actions
                 listener.deleteSelectedRecord(id);
                 return true;
             default:
