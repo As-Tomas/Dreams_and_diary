@@ -43,7 +43,8 @@
         android:layout_below="@+id/date"
         android:layout_alignParentEnd="true"
         android:text="Title"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/dreamsNotice"
@@ -66,6 +67,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dayNotes"
-        android:text="tags" />
+        android:text="tags"/>
 
 </RelativeLayout>
