@@ -96,23 +96,23 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
                 .commit();
     }
 
-    @Override
-    public void onInputAssent(CharSequence date, CharSequence time, CharSequence title, CharSequence dreamNotes, CharSequence dayNotes, String[] tags, int id) {
+//    @Override // Edit version
+//    public void onInputAssent(CharSequence date, CharSequence time, CharSequence title, CharSequence dreamNotes, CharSequence dayNotes, String[] tags, int id) {
+//
+//        this.date =date;
+//        this.time = time;
+//        this.title = title;
+//        this.dreamNotes = dreamNotes;
+//        this.dayNotes = dayNotes;
+//        this.tags = tags;
+//        this.idToEdit = id;
+//
+//        dreamMoodFragment = new MoodFragment();
+//        setCurrentFragment(dreamMoodFragment);
+//
+//    }
 
-        this.date =date;
-        this.time = time;
-        this.title = title;
-        this.dreamNotes = dreamNotes;
-        this.dayNotes = dayNotes;
-        this.tags = tags;
-        this.idToEdit = id;
-
-        dreamMoodFragment = new MoodFragment();
-        setCurrentFragment(dreamMoodFragment);
-
-    }
-
-    @Override
+    @Override //Add version
     public void onInputAssent(CharSequence date, CharSequence time, CharSequence title, CharSequence dreamNotes, CharSequence dayNotes, String[] tags) {
 
         this.date =date;
@@ -244,15 +244,23 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
     }
 
     @Override
-    public void editSelectedRecord(int id,
+    public void editSelectedRecord(int idArg,
                                    String date,
                                    String timeArg,
                                    String titleArg,
                                    String dreamNotesArg,
                                    String dayNotesArg,
-                                   String TagsArg) {
+                                   String TagsArg,
+                                   int moodArg,
+                                   int qualityArg,
+                                   int clarityArg) {
+        //todo Case A, we can set id already before call addRecordFragment and remove unnecessary code - DONE
+        idToEdit = idArg;
+        mood = moodArg;
+        quality = qualityArg;
+        clarity = clarityArg;
 
-        Fragment add_record_fragmentNew = AddRecordFragment.newInstance(id, date, timeArg, titleArg, dreamNotesArg, dayNotesArg, TagsArg);
+        Fragment add_record_fragmentNew = AddRecordFragment.newInstance( date, timeArg, titleArg, dreamNotesArg, dayNotesArg, TagsArg);
 
         setCurrentFragment(add_record_fragmentNew);
     }
@@ -309,6 +317,7 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
             removeRecordFromDB(idToEdit);
             updateDB(dreamToSave, true);
             idToEdit = -1;
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

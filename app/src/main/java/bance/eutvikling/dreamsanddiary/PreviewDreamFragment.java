@@ -29,7 +29,10 @@ public class PreviewDreamFragment extends Fragment {
                                 String titleArg,
                                 String dreamNotesArg,
                                 String dayNotesArg,
-                                String TagsArg);
+                                String TagsArg,
+                                int moodArg,
+                                int qualityArg,
+                                int clarityArg);
 
         void deleteSelectedRecord(int id);
     }
@@ -42,6 +45,9 @@ public class PreviewDreamFragment extends Fragment {
     public static final String ARG_DREAM_NOTES="dreamNotes" ;
     public static final String ARG_DAY_NOTES="dayNotes" ;
     public static final String ARG_TAGS="tags" ;
+    public static final String ARG_MOOD="mood" ;
+    public static final String ARG_QUALITY="quality" ;
+    public static final String ARG_CLARITY="clarity" ;
     public static final String  ARG_ID= "Id" ;
 
 
@@ -104,20 +110,23 @@ public class PreviewDreamFragment extends Fragment {
             id = args.getInt(ARG_ID);
         }
 
-        switch (item.getItemId()) {
+        switch (item.getItemId()) { // Edit item was selected
             case R.id.option_edit:
-                // Edit item was selected
+
                 listener.editSelectedRecord( id,
                         args.getString(ARG_DATE),
                         args.getString(ARG_TIME),
                         args.getString(ARG_TITLE),
                         args.getString(ARG_DREAM_NOTES),
                         args.getString(ARG_DAY_NOTES),
-                        args.getString(ARG_TAGS));
+                        args.getString(ARG_TAGS),
+                        args.getInt(ARG_MOOD),
+                        args.getInt(ARG_QUALITY),
+                        args.getInt(ARG_CLARITY));
 
                 return true;
-            case R.id.option_delete:
-                // Delete item was selected
+            case R.id.option_delete:  // Delete item was selected
+
                 listener.deleteSelectedRecord(id);
                 return true;
             default:

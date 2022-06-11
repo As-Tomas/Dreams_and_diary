@@ -29,7 +29,7 @@ import java.time.temporal.TemporalAccessor;
 
 public class AddRecordFragment extends Fragment {
 
-    private static final String ARG_ID = "id";
+    //private static final String ARG_ID = "id";
     private static final String ARG_DATE ="date";
     private static final String ARG_TIME = "timeArg";
     private static final String ARG_TITLE="title" ;
@@ -37,7 +37,7 @@ public class AddRecordFragment extends Fragment {
     private static final String ARG_DAY_NOTES="dayNotes" ;
     private static final String ARG_TAGS="tags" ;
 
-    private int id;
+    //private int id;
     private String date;
     private String timeArg;
     private String title;
@@ -49,7 +49,7 @@ public class AddRecordFragment extends Fragment {
 
 
     public interface AddRecordListener {
-        void onInputAssent(CharSequence date, CharSequence time, CharSequence title, CharSequence dreamNotes, CharSequence dayNotes, String[] tags, int id);
+//        void onInputAssent(CharSequence date, CharSequence time, CharSequence title, CharSequence dreamNotes, CharSequence dayNotes, String[] tags, int id);
         void onInputAssent(CharSequence date, CharSequence time, CharSequence title, CharSequence dreamNotes, CharSequence dayNotes, String[] tags);
     }
 
@@ -65,10 +65,10 @@ public class AddRecordFragment extends Fragment {
      * @return A new instance of fragment AddRecordFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AddRecordFragment newInstance(int param1, String param2, String param3, String param4, String param5, String param6, String param7) {
+    public static AddRecordFragment newInstance( String param2, String param3, String param4, String param5, String param6, String param7) {
         AddRecordFragment fragment = new AddRecordFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_ID, param1);
+        //args.putInt(ARG_ID, param1);
         args.putString(ARG_DATE, param2);
         args.putString(ARG_TIME, param3);
         args.putString(ARG_TITLE, param4);
@@ -83,7 +83,7 @@ public class AddRecordFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            id = getArguments().getInt(ARG_ID);
+            //id = getArguments().getInt(ARG_ID);
             date = getArguments().getString(ARG_DATE);
             timeArg = getArguments().getString(ARG_TIME);
             title = getArguments().getString(ARG_TITLE);
@@ -160,11 +160,12 @@ public class AddRecordFragment extends Fragment {
                 String allTags = tagsTitleText.getText().toString();
                 String[] tags = allTags.split(",");
 
-                if (getArguments() != null){
-                    listener.onInputAssent(date, time, title, dreamNotes, dayNotes, tags, id);
-                } else {
-                    listener.onInputAssent(date, time, title, dreamNotes, dayNotes, tags);
-                }
+//                if (getArguments() != null){
+//                    listener.onInputAssent(date, time, title, dreamNotes, dayNotes, tags, id); // todo Case A, we can set id already before call addRecordFragment and remove unnecessary code
+//                } else {
+//                    listener.onInputAssent(date, time, title, dreamNotes, dayNotes, tags);
+//                }
+                listener.onInputAssent(date, time, title, dreamNotes, dayNotes, tags);
 
             }
         });

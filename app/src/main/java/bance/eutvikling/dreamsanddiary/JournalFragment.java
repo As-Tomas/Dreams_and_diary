@@ -90,6 +90,9 @@ public class JournalFragment extends Fragment {
                 bundle.putString(PreviewDreamFragment.ARG_DREAM_NOTES, chosen.getDreamsNotice().toString());
                 bundle.putString(PreviewDreamFragment.ARG_DAY_NOTES, chosen.getDayNotice().toString());
                 bundle.putString(PreviewDreamFragment.ARG_TAGS,  String.join(", ",chosen.getTags()));
+                bundle.putInt(PreviewDreamFragment.ARG_MOOD,  chosen.getMoodDream());
+                bundle.putInt(PreviewDreamFragment.ARG_QUALITY,  chosen.getSleepQuantity());
+                bundle.putInt(PreviewDreamFragment.ARG_CLARITY,  chosen.getClarityDream());
                 bundle.putInt(PreviewDreamFragment.ARG_ID, i);
                 Log.i("id: ", String.valueOf(i));
                 prevFrag.setArguments(bundle);
