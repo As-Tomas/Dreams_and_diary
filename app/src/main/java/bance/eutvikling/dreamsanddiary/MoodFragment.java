@@ -21,7 +21,7 @@ import android.widget.Toast;
 public class MoodFragment extends Fragment {
     
     private static final String ARG_MOOD ="mood";
-    private int mood;
+    private int mood = -1;;
     
     private MoodListener listener;
 

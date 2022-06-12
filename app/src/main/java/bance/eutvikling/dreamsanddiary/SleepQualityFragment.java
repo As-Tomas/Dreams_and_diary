@@ -18,7 +18,7 @@ import android.widget.TextView;
 public class SleepQualityFragment extends Fragment {
 
     private static final String ARG_QUALITY = "quality";
-  private int sleepQuality;
+  private int sleepQuality = -1;
 
   private SleepQualityListener listener;
 

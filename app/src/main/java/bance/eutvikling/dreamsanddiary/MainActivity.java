@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
     }
 
     @Override
-    public void saveMood(int i) {
+    public void saveMood(int i) { // 1
 
         switch (i) {
             case 0:
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
     }
 
     @Override
-    public void saveSleepQuality(int i) {
+    public void saveSleepQuality(int i) {  //2
 
         switch (i) {
             case 0:
@@ -184,13 +184,18 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
                 break;
         }
 
+        if(idToEdit >= 0){
+            clarityDreamFragment = ClarityDreamFragment.newInstance(clarity);
+            setCurrentFragment(sleepQualityFragment);
+        } else {
+            clarityDreamFragment = new ClarityDreamFragment();
+            setCurrentFragment(clarityDreamFragment);
+        }
 
-        clarityDreamFragment = new ClarityDreamFragment();
-        setCurrentFragment(clarityDreamFragment);
     }
 
     @Override
-    public void saveClarityDream(int i) {
+    public void saveClarityDream(int i) { // 3
 
         switch (i) {
             case 0:

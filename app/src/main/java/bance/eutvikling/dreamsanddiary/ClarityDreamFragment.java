@@ -16,7 +16,9 @@ import android.widget.LinearLayout;
 
 public class ClarityDreamFragment extends Fragment {
 
-    private int clarity;
+    private static final String ARG_CLARYITY = "clarity";
+    private int clarity = -1;;
+
     private ClarityDreamLitener listener;
 
     public interface ClarityDreamLitener {
@@ -27,6 +29,22 @@ public class ClarityDreamFragment extends Fragment {
 
     public ClarityDreamFragment() {
         // Required empty public constructor
+    }
+
+    public static ClarityDreamFragment newInstance(int param1) {
+        ClarityDreamFragment clarityDreamFragment = new ClarityDreamFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_CLARYITY, param1);
+        clarityDreamFragment.setArguments(args);
+        return clarityDreamFragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(getArguments() != null){
+            clarity = getArguments().getInt(ARG_CLARYITY);
+        }
     }
 
     @Override
@@ -111,6 +129,7 @@ public class ClarityDreamFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                listener.saveClarityDream(clarity);
                 listener.save();
                 listener.backToJournal();
             }
