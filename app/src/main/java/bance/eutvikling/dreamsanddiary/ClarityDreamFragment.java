@@ -57,6 +57,8 @@ public class ClarityDreamFragment extends Fragment {
             public void onClick(View view) {
 
                 listener.saveClarityDream( 0);
+                listener.save();
+                listener.backToJournal();
             }
         });
 
@@ -66,6 +68,8 @@ public class ClarityDreamFragment extends Fragment {
             public void onClick(View view) {
 
                 listener.saveClarityDream(1);
+                listener.save();
+                listener.backToJournal();
             }
         });
 
@@ -75,6 +79,8 @@ public class ClarityDreamFragment extends Fragment {
             public void onClick(View view) {
 
                 listener.saveClarityDream(2);
+                listener.save();
+                listener.backToJournal();
             }
         });
 
@@ -84,6 +90,8 @@ public class ClarityDreamFragment extends Fragment {
             public void onClick(View view) {
 
                 listener.saveClarityDream(3);
+                listener.save();
+                listener.backToJournal();
             }
         });
 
@@ -93,6 +101,8 @@ public class ClarityDreamFragment extends Fragment {
             public void onClick(View view) {
 
                 listener.saveClarityDream(4);
+                listener.save();
+                listener.backToJournal();
             }
         });
 
