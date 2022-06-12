@@ -96,23 +96,7 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
                 .commit();
     }
 
-//    @Override // Edit version
-//    public void onInputAssent(CharSequence date, CharSequence time, CharSequence title, CharSequence dreamNotes, CharSequence dayNotes, String[] tags, int id) {
-//
-//        this.date =date;
-//        this.time = time;
-//        this.title = title;
-//        this.dreamNotes = dreamNotes;
-//        this.dayNotes = dayNotes;
-//        this.tags = tags;
-//        this.idToEdit = id;
-//
-//        dreamMoodFragment = new MoodFragment();
-//        setCurrentFragment(dreamMoodFragment);
-//
-//    }
-
-    @Override //Add version
+    @Override
     public void onInputAssent(CharSequence date, CharSequence time, CharSequence title, CharSequence dreamNotes, CharSequence dayNotes, String[] tags) {
 
         this.date =date;
@@ -347,61 +331,7 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-//        try {
-//            //read existing records
-//            JSONArray records = readDB();
-//
-//            JSONObject obj = (JSONObject) records.get(idToEdit);
-//            Log.i("how it looks: ", obj.toString());
-//
-//
-//            if(!obj.getString("date").equals(dreamToSave.getDate().toString())){
-//                obj.put("date",dreamToSave.getDate().toString());
-//            }
-//            if(!obj.getString("time").equals(dreamToSave.getTime().toString())){
-//                obj.put("time",dreamToSave.getTime().toString());
-//            }
-//            if(!obj.getString("title").equals(dreamToSave.getTitle().toString())){
-//                obj.put("title",dreamToSave.getTitle().toString());
-//            }
-//            if(!obj.getString("dreamsNotice").equals(dreamToSave.getDreamsNotice().toString())){
-//                obj.put("dreamsNotice",dreamToSave.getDreamsNotice().toString());
-//            }
-//            if(!obj.getString("dayNotice").equals(dreamToSave.getDayNotice().toString())){
-//                obj.put("dayNotice",dreamToSave.getDayNotice().toString());
-//            }
-//
-//            JSONArray newTagsJSONArr =  new JSONArray();
-//
-//            String[] newTagsArr = dreamToSave.getTags();
-//            for(int i=0; i < newTagsArr.length; i++){
-//                newTagsJSONArr.put(newTagsArr[i]);
-//            }
-//            obj.put("tags",newTagsJSONArr);
-//
-//            if(obj.getInt("moodDream") != dreamToSave.getMoodDream()){
-//                obj.put("moodDream",dreamToSave.getMoodDream());
-//            }
-//            if(obj.getInt("sleepQuantity") != dreamToSave.getSleepQuantity()){
-//                obj.put("sleepQuantity",dreamToSave.getSleepQuantity());
-//            }
-//            if(obj.getInt("clarityDream") != dreamToSave.getClarityDream()){
-//                obj.put("clarityDream",dreamToSave.getClarityDream());
-//            }
-//
-//            Log.i("how it looks: ", obj.toString());
-//
-//            records.put(idToEdit, obj);
-//
-//            saveDB(records);
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-
-    };
+    }
 
     public boolean updateDB(Dream dreamToUpdate, boolean addOrRemove) throws JSONException {
 

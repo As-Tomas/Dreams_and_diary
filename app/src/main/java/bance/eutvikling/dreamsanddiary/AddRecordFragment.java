@@ -160,11 +160,6 @@ public class AddRecordFragment extends Fragment {
                 String allTags = tagsTitleText.getText().toString();
                 String[] tags = allTags.split(",");
 
-//                if (getArguments() != null){
-//                    listener.onInputAssent(date, time, title, dreamNotes, dayNotes, tags, id); // todo Case A, we can set id already before call addRecordFragment and remove unnecessary code
-//                } else {
-//                    listener.onInputAssent(date, time, title, dreamNotes, dayNotes, tags);
-//                }
                 listener.onInputAssent(date, time, title, dreamNotes, dayNotes, tags);
 
             }
