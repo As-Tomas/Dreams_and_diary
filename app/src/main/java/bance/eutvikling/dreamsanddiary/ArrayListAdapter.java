@@ -44,9 +44,20 @@ public class ArrayListAdapter extends ArrayAdapter<Dream> {
         Dream dream_record = dreamsRecords.get(position);
 
         date.setText(dream_record.getDate());
-        iconMood.setImageResource(dream_record.getMoodDream());
-        iconQuality.setImageResource(dream_record.getSleepQuantity());
-        iconClarity.setImageResource(dream_record.getClarityDream());
+
+        int mood = dream_record.getMoodDream();
+        int quality = dream_record.getSleepQuantity();
+        int clarity = dream_record.getClarityDream();
+        if(mood >= 0){
+            iconMood.setImageResource(mood);
+        }
+        if(quality >= 0){
+            iconQuality.setImageResource(quality);
+        }
+        if(clarity >= 0){
+            iconClarity.setImageResource(clarity);
+        }
+
         title.setText(dream_record.getTitle());
         dreamsNotice.setText(dream_record.getDreamsNotice());
         dayNotes.setText(dream_record.getDayNotice());

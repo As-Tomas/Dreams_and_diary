@@ -122,8 +122,13 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
         this.dayNotes = dayNotes;
         this.tags = tags;
 
-        dreamMoodFragment = new MoodFragment();
-        setCurrentFragment(dreamMoodFragment);
+        if(idToEdit >= 0){
+            dreamMoodFragment = MoodFragment.newInstance(mood);
+            setCurrentFragment(dreamMoodFragment);
+        } else {
+            dreamMoodFragment = new MoodFragment();
+            setCurrentFragment(dreamMoodFragment);
+        }
 
     }
 
@@ -148,9 +153,13 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
                 break;
         }
 
-
-        sleepQualityFragment = new SleepQualityFragment();
-        setCurrentFragment(sleepQualityFragment);
+        if(idToEdit >= 0){
+            sleepQualityFragment = SleepQualityFragment.newInstance(quality);
+            setCurrentFragment(sleepQualityFragment);
+        } else {
+            sleepQualityFragment = new SleepQualityFragment();
+            setCurrentFragment(sleepQualityFragment);
+        }
 
     }
 
@@ -317,6 +326,9 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
             removeRecordFromDB(idToEdit);
             updateDB(dreamToSave, true);
             idToEdit = -1;
+            mood = -1;
+            quality = -1;
+            clarity = -1;
 
         } catch (JSONException e) {
             e.printStackTrace();

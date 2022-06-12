@@ -10,13 +10,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
 public class SleepQualityFragment extends Fragment {
 
+    private static final String ARG_QUALITY = "quality";
   private int sleepQuality;
+
   private SleepQualityListener listener;
 
   public interface SleepQualityListener {
@@ -25,6 +28,22 @@ public class SleepQualityFragment extends Fragment {
 
     public SleepQualityFragment() {
         // Required empty public constructor
+    }
+
+    public static SleepQualityFragment newInstance(int param1){
+        SleepQualityFragment fragment = new SleepQualityFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_QUALITY, param1);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(getArguments() != null){
+            sleepQuality = getArguments().getInt(ARG_QUALITY);
+        }
     }
 
     @Override
@@ -91,7 +110,14 @@ public class SleepQualityFragment extends Fragment {
             }
         });
 
-        //todo button next
+
+        Button button = (Button) view.findViewById(R.id.nextButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.saveSleepQuality(sleepQuality); // no selection -> edit mode
+            }
+        });
     }
 
     @Override

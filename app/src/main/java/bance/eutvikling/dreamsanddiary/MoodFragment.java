@@ -1,5 +1,7 @@
 package bance.eutvikling.dreamsanddiary;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 import android.content.Context;
 import android.os.Bundle;
 
@@ -10,16 +12,37 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MoodFragment extends Fragment {
-
+    
+    private static final String ARG_MOOD ="mood";
+    private int mood;
+    
     private MoodListener listener;
 
     public MoodFragment() {
         // Required empty public constructor
+    }
+    
+    public static MoodFragment newInstance(int param1) {
+        MoodFragment moodFragment = new MoodFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_MOOD, param1 );
+        moodFragment.setArguments(args);
+        return moodFragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mood = getArguments().getInt(ARG_MOOD);
+        }
     }
 
     public interface MoodListener {
@@ -94,7 +117,15 @@ public class MoodFragment extends Fragment {
         });
 
         //todo button next
+        Context context;
+        Button button = view.findViewById(R.id.nextButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                listener.saveMood(mood); // no selection -> edit mode
+            }
+        });
 
     }
 
