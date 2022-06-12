@@ -111,8 +111,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tagsTitle"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="30dp"
-        android:text="temp Save until future" />
+        android:padding="15dp"
+        android:layout_margin="16dp"
+        android:text="Next"
+        app:iconGravity="end"
+        app:icon="@drawable/ic_baseline_navigate_next"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        />
 
 </RelativeLayout>
