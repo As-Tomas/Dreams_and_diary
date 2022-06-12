@@ -151,6 +151,9 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
             case 4:
                 mood = R.drawable.verynice;
                 break;
+            case -1:
+                mood = -1;
+                break;
         }
 
         if(idToEdit >= 0){
@@ -182,11 +185,14 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
             case 4:
                 quality = R.drawable.perfectsleep;
                 break;
+            case -1:
+                quality = -1;
+                break;
         }
 
         if(idToEdit >= 0){
             clarityDreamFragment = ClarityDreamFragment.newInstance(clarity);
-            setCurrentFragment(sleepQualityFragment);
+            setCurrentFragment(clarityDreamFragment);
         } else {
             clarityDreamFragment = new ClarityDreamFragment();
             setCurrentFragment(clarityDreamFragment);
@@ -212,6 +218,9 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
                 break;
             case 4:
                 clarity = R.drawable.clear;
+                break;
+            case -1:
+                clarity = -1;
                 break;
         }
 
