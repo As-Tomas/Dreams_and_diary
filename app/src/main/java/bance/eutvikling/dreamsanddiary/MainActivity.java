@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
     AddRecordFragment add_record_fragment;
     SearchFragment search_fragment;
 
-    //private AddRecordFragment addRecordFragment;
     private MoodFragment dreamMoodFragment;
     private SleepQualityFragment sleepQualityFragment;
     private ClarityDreamFragment clarityDreamFragment;
@@ -217,20 +216,6 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
                 clarity = -1;
                 break;
         }
-
-
-        Log.i(TAG, "here "+ date.toString());
-        Log.i(TAG, "here "+ time.toString());
-        Log.i(TAG, "here "+ title.toString());
-        Log.i(TAG, "here "+ dreamNotes.toString());
-        Log.i(TAG, "here "+ dayNotes.toString());
-        Log.i(TAG, "here "+ tags.toString());
-        Log.i(TAG, "here mood "+ mood);
-        Log.i(TAG, "here quality "+ quality);
-        Log.i(TAG, "here clarity "+ clarity);
-
-        //todo should save to DB...
-
     }
 
     @Override
@@ -250,8 +235,6 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
             // reset for new window new instance
             add_record_fragment = new AddRecordFragment();
         }
-
-
     }
 
     @Override
@@ -271,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
                                    int moodArg,
                                    int qualityArg,
                                    int clarityArg) {
-        //todo Case A, we can set id already before call addRecordFragment and remove unnecessary code - DONE
+
         idToEdit = idArg;
         mood = moodArg;
         quality = qualityArg;
