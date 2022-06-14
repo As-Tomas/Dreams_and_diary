@@ -62,9 +62,14 @@ public class SearchFragment extends Fragment {
             public void onClick(View view) {
 
                 TextInputEditText searchEditText = getActivity().findViewById(R.id.search);
-                CharSequence searchFor = searchEditText.getText();
+                CharSequence word = searchEditText.getText();
+                
+                search(word);
 
-
+                adapter.notifyDataSetChanged();
+//                adapter = new ArrayListAdapter(resultListOfDreams, view.getContext());
+//                list = view.findViewById(R.id.listResults);
+//                list.setAdapter(adapter);
 
             }
         });
@@ -85,5 +90,19 @@ public class SearchFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         listener = null;
+    }
+
+    void search( CharSequence searchWord) {
+
+        resultListOfDreams.clear();
+        
+        for(Dream record : listOfDreams){
+            if(record.getTitle().toString().contains(searchWord) ||
+                    record.getDreamsNotice().toString().contains(searchWord) ||
+                    record.getDayNotice().toString().contains(searchWord)){
+                resultListOfDreams.add(record);
+            }
+        }
+
     }
 }
