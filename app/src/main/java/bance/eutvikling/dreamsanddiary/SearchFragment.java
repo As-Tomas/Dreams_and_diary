@@ -102,6 +102,12 @@ public class SearchFragment extends Fragment {
                     record.getDayNotice().toString().contains(searchWord)){
                 resultListOfDreams.add(record);
             }
+            //search in tags
+            for(String tag : record.getTags()){
+                if(tag.contains(searchWord)){
+                    resultListOfDreams.add(record);
+                }
+            }
         }
 
     }
