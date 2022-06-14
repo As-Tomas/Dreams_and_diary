@@ -6,23 +6,33 @@
     android:layout_margin="15dp">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/SearchField"
+        android:id="@+id/searchField"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:hint="Search">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/date"
+            android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/searchField"
+        android:layout_marginTop="8dp"
+        android:text="Go"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        />
 
     <ListView
         android:id="@+id/listResults"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/SearchField"
+        android:layout_below="@+id/searchField"
         android:layout_marginTop="7dp" />
 
 </RelativeLayout>
