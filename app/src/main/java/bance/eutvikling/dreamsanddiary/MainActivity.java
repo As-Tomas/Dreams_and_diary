@@ -29,7 +29,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class MainActivity extends AppCompatActivity implements JournalFragment.JournalFragmentListener, AddRecordFragment.AddRecordListener, MoodFragment.MoodListener, SleepQualityFragment.SleepQualityListener, ClarityDreamFragment.ClarityDreamLitener, PreviewDreamFragment.PreviewDreamFragmentListener {
+public class MainActivity extends AppCompatActivity implements JournalFragment.JournalFragmentListener,
+        AddRecordFragment.AddRecordListener,
+        MoodFragment.MoodListener,
+        SleepQualityFragment.SleepQualityListener,
+        ClarityDreamFragment.ClarityDreamLitener,
+        PreviewDreamFragment.PreviewDreamFragmentListener,
+        SearchFragment.SearchFragmentListener{
 
     BottomNavigationView bottomNavigationView;
 
@@ -527,5 +533,6 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
         }
         return false;
     }
+
 
 }

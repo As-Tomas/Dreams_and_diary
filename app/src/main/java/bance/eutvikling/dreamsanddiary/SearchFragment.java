@@ -1,5 +1,6 @@
 package bance.eutvikling.dreamsanddiary;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,12 @@ public class SearchFragment extends Fragment {
     ArrayList<Dream> listOfDreams;
     ListView list;
     ArrayListAdapter adapter;
+
+    private SearchFragmentListener listener;
+
+    public interface SearchFragmentListener {
+        ArrayList<Dream> loadDB();
+    }
 
     public SearchFragment() {
         // Required empty public constructor
@@ -59,5 +66,21 @@ public class SearchFragment extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof SearchFragmentListener){
+            listener = (SearchFragmentListener) context;
+        } else {
+            throw new RuntimeException(context + " must implement SearchFragmentListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 }
