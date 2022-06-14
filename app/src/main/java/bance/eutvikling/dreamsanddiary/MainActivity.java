@@ -303,15 +303,6 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
     // edit records in JSON by index if time changed sort has not applied !!! after new record sort applies...
     public void editRecord(Dream dreamToSave){
 
-
-        ArrayList<Dream> records = loadDB();
-
-//        Log.i("Record: ", records.get(idToEdit).getTitle().toString());
-//        Log.i("size: ", String.valueOf(records.size()));
-//        records.add(idToEdit,dreamToSave);
-//        Log.i("Record: ", records.get(idToEdit).getTitle().toString());
-//        Log.i("size: ", String.valueOf(records.size()));
-
         Log.i("Record ID : ", String.valueOf(idToEdit));
         try {
             removeRecordFromDB(idToEdit);
