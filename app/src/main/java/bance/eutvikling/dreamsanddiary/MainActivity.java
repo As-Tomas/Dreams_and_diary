@@ -80,6 +80,10 @@ public class MainActivity extends AppCompatActivity implements JournalFragment.J
                         setCurrentFragment(journal_fragment);
                         return true;
                     case R.id.addNew:
+                        idToEdit = -1;
+                        mood = -1;
+                        quality = -1;
+                        clarity = -1;
                         add_record_fragment = new AddRecordFragment();
                         setCurrentFragment(add_record_fragment);
                         return true;
