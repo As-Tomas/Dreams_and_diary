@@ -7,9 +7,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -108,6 +110,36 @@ public class SearchFragment extends Fragment {
                     resultListOfDreams.add(record);
                 }
             }
+        }
+
+        if(resultListOfDreams.size() > 0){
+            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    Dream chosen = listOfDreams.get(i);
+
+                    PreviewDreamFragment prevFrag = new PreviewDreamFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString(PreviewDreamFragment.ARG_DATE_TIME, chosen.getDateAndTime().toString()); //for display in preview
+                    bundle.putString(PreviewDreamFragment.ARG_DATE, chosen.getDate().toString());
+                    bundle.putString(PreviewDreamFragment.ARG_TIME, chosen.getTime().toString());
+                    bundle.putString(PreviewDreamFragment.ARG_TITLE, chosen.getTitle().toString());
+                    bundle.putString(PreviewDreamFragment.ARG_DREAM_NOTES, chosen.getDreamsNotice().toString());
+                    bundle.putString(PreviewDreamFragment.ARG_DAY_NOTES, chosen.getDayNotice().toString());
+                    bundle.putString(PreviewDreamFragment.ARG_TAGS, String.join(", ", chosen.getTags()));
+                    bundle.putInt(PreviewDreamFragment.ARG_MOOD, chosen.getMoodDream());
+                    bundle.putInt(PreviewDreamFragment.ARG_QUALITY, chosen.getSleepQuantity());
+                    bundle.putInt(PreviewDreamFragment.ARG_CLARITY, chosen.getClarityDream());
+                    bundle.putInt(PreviewDreamFragment.ARG_ID, i);
+                    Log.i("id: ", String.valueOf(i));
+                    prevFrag.setArguments(bundle);
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.frame, prevFrag, "findThisFragment")
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
         }
 
     }
