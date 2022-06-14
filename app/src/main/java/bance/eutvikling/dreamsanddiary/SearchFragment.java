@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class SearchFragment extends Fragment {
 
     ArrayList<Dream> listOfDreams;
+    ArrayList<Dream> resultListOfDreams;
     ListView list;
     ArrayListAdapter adapter;
 
@@ -40,10 +41,12 @@ public class SearchFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
-        listOfDreams = new ArrayList();
-        adapter = new ArrayListAdapter(listOfDreams, view.getContext());
+        resultListOfDreams = new ArrayList();
+        adapter = new ArrayListAdapter(resultListOfDreams, view.getContext());
         list = view.findViewById(R.id.listResults);
         list.setAdapter(adapter);
+
+        listOfDreams = listener.loadDB();
 
         return view;
     }
